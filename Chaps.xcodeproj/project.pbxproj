@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		191DF6ACD8662C4B247124A3 /* Pods_ChapsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1DA820C2ABA54FFEA9BEB5E /* Pods_ChapsTests.framework */; };
+		9245D62D227F7634004BB89B /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D62C227F7634004BB89B /* Location.swift */; };
+		9245D62F227FC1D8004BB89B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D62E227FC1D8004BB89B /* Weather.swift */; };
+		9245D633227FC332004BB89B /* NetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D632227FC332004BB89B /* NetworkOperation.swift */; };
+		9245D635227FC50B004BB89B /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D634227FC50B004BB89B /* ForecastService.swift */; };
+		9245D637227FC65A004BB89B /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D636227FC65A004BB89B /* Forecast.swift */; };
 		92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02C2275E11C00570ED4 /* AppDelegate.swift */; };
 		92F4B02F2275E11C00570ED4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02E2275E11C00570ED4 /* ViewController.swift */; };
 		92F4B0322275E11C00570ED4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F4B0302275E11C00570ED4 /* Main.storyboard */; };
@@ -31,6 +36,11 @@
 		00947DA9852A749B58EBE402 /* Pods-Chaps.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chaps.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chaps/Pods-Chaps.release.xcconfig"; sourceTree = "<group>"; };
 		2B29DCB42B89B5DACD02F87A /* Pods-ChapsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChapsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChapsTests/Pods-ChapsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D7437F92DADAA87AF5FB838 /* Pods-Chaps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chaps.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chaps/Pods-Chaps.debug.xcconfig"; sourceTree = "<group>"; };
+		9245D62C227F7634004BB89B /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		9245D62E227FC1D8004BB89B /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		9245D632227FC332004BB89B /* NetworkOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperation.swift; sourceTree = "<group>"; };
+		9245D634227FC50B004BB89B /* ForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
+		9245D636227FC65A004BB89B /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		92F4B0292275E11C00570ED4 /* Chaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F4B02C2275E11C00570ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92F4B02E2275E11C00570ED4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +96,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9245D630227FC2F7004BB89B /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				9245D62C227F7634004BB89B /* Location.swift */,
+				9245D62E227FC1D8004BB89B /* Weather.swift */,
+				9245D636227FC65A004BB89B /* Forecast.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		9245D631227FC315004BB89B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9245D632227FC332004BB89B /* NetworkOperation.swift */,
+				9245D634227FC50B004BB89B /* ForecastService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		92F4B0202275E11C00570ED4 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +138,8 @@
 		92F4B02B2275E11C00570ED4 /* Chaps */ = {
 			isa = PBXGroup;
 			children = (
+				9245D631227FC315004BB89B /* Services */,
+				9245D630227FC2F7004BB89B /* Data */,
 				92F4B02C2275E11C00570ED4 /* AppDelegate.swift */,
 				92F4B02E2275E11C00570ED4 /* ViewController.swift */,
 				92F4B0302275E11C00570ED4 /* Main.storyboard */,
@@ -301,7 +332,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9245D62F227FC1D8004BB89B /* Weather.swift in Sources */,
 				92F4B02F2275E11C00570ED4 /* ViewController.swift in Sources */,
+				9245D637227FC65A004BB89B /* Forecast.swift in Sources */,
+				9245D633227FC332004BB89B /* NetworkOperation.swift in Sources */,
+				9245D62D227F7634004BB89B /* Location.swift in Sources */,
+				9245D635227FC50B004BB89B /* ForecastService.swift in Sources */,
 				92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
