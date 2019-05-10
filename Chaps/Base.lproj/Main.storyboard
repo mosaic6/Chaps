@@ -147,13 +147,13 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mud-JJ-P1q">
-                                        <rect key="frame" x="20" y="59" width="374" height="29"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="20" y="59" width="374" height="34"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPa-2d-zin">
-                                        <rect key="frame" x="20" y="30" width="122" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verification Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPa-2d-zin">
+                                        <rect key="frame" x="20" y="30" width="141" height="21"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -179,7 +179,7 @@
                                     <constraint firstItem="4VT-J3-OwT" firstAttribute="top" secondItem="U4e-h5-KaA" secondAttribute="bottom" constant="36" id="e3L-tA-kzy"/>
                                     <constraint firstItem="U4e-h5-KaA" firstAttribute="width" secondItem="mud-JJ-P1q" secondAttribute="width" id="fQG-Gb-ld7"/>
                                     <constraint firstAttribute="trailing" secondItem="mud-JJ-P1q" secondAttribute="trailing" constant="20" id="t4Y-6Y-d9P"/>
-                                    <constraint firstItem="U4e-h5-KaA" firstAttribute="top" secondItem="mud-JJ-P1q" secondAttribute="bottom" constant="5" id="vFs-LY-dqe"/>
+                                    <constraint firstItem="U4e-h5-KaA" firstAttribute="top" secondItem="mud-JJ-P1q" secondAttribute="bottom" id="vFs-LY-dqe"/>
                                 </constraints>
                             </view>
                         </subviews>

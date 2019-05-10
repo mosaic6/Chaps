@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  ViewController.swift
 //  Chaps
 //
 //  Created by Joshua Walsh on 4/28/19.
@@ -11,37 +11,25 @@ import CoreLocation
 import ForecastIO
 import Firebase
 
-class MainViewController: UIViewController {
-
-  // MARK: Variables
+class ViewController: UIViewController {
 
   let forecastAPI = "2d3a728b58d6c21983e13d6aba624a5a"
   let manager = CLLocationManager()
   var location: CLLocation?
 
-  // MARK: 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    checkLocationServices()
+    getCurrentLocation()  
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    checkUserAuth { isSignedIn in
-      if isSignedIn {
-        self.checkLocationServices()
-        self.getCurrentLocation()
-      }
-    }
-
     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
       self.getWeatherForecast()
     }
-  }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-
   }
 
   func checkLocationServices() {
@@ -89,31 +77,11 @@ class MainViewController: UIViewController {
     }
   }
 
-  // MARK: Get User Status
-
-  func checkUserAuth(_ completion: @escaping (Bool) -> Void) {
-    signOut()
-    guard Auth.auth().currentUser != nil else {
-      self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
-      completion(false)
-      return
-    }
-    completion(true)
-  }
-
-  func signOut() {
-    do {
-      try? Auth.auth().signOut()
-    } catch {
-      print(error.localizedDescription)
-    }
-  }
-
 }
 
 // MARK: CLLocationManagerDelegate
 
-extension MainViewController: CLLocationManagerDelegate {
+extension ViewController: CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     if let location = locations.first {
