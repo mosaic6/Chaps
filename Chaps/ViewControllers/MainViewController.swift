@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  Chaps
 //
 //  Created by Joshua Walsh on 4/28/19.
@@ -11,52 +11,37 @@ import CoreLocation
 import ForecastIO
 import Firebase
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
+
+  // MARK: Variables
 
   let forecastAPI = "2d3a728b58d6c21983e13d6aba624a5a"
   let manager = CLLocationManager()
   var location: CLLocation?
 
+  // MARK: 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    checkLocationServices()
-    getCurrentLocation()
-
-    phoneLogin()
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
+    checkUserAuth { isSignedIn in
+      if isSignedIn {
+        self.checkLocationServices()
+        self.getCurrentLocation()
+      }
+    }
+
     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
       self.getWeatherForecast()
     }
-
   }
 
-  func phoneLogin() {
-    PhoneAuthProvider.provider().verifyPhoneNumber("16178525581", uiDelegate: nil) { verificationId, error in
-      if let error = error {
-        print(error)
-      }
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
 
-      UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
-//      let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
-    }
-  }
-
-  func signInWithVerificationCode(verificationID: String, verificationCode: String) {
-    let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID,
-                                                             verificationCode: verificationCode)
-
-    Auth.auth().signInAndRetrieveData(with: credential) { result, error in
-      if let error = error {
-        return
-      }
-
-      // TODO: User is signed in
-    }
   }
 
   func checkLocationServices() {
@@ -104,11 +89,28 @@ class ViewController: UIViewController {
     }
   }
 
+  // MARK: Get User Status
+
+  func checkUserAuth(_ completion: @escaping (Bool) -> Void) {
+    do {
+      try? Auth.auth().signOut()
+    } catch {
+      print(error.localizedDescription)
+    }
+    
+    guard Auth.auth().currentUser != nil else {
+      self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
+      completion(false)
+      return
+    }
+    completion(true)
+  }
+
 }
 
 // MARK: CLLocationManagerDelegate
 
-extension ViewController: CLLocationManagerDelegate {
+extension MainViewController: CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     if let location = locations.first {

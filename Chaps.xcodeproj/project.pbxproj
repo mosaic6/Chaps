@@ -15,8 +15,10 @@
 		9245D637227FC65A004BB89B /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D636227FC65A004BB89B /* Forecast.swift */; };
 		9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D63B2283B5A0004BB89B /* Decoder.swift */; };
 		9245D63E22850D40004BB89B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9245D63D22850D40004BB89B /* GoogleService-Info.plist */; };
+		92A9B56822851B0300386D60 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A9B56722851B0300386D60 /* LoginViewController.swift */; };
+		92A9B56A2285FF2600386D60 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */; };
 		92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02C2275E11C00570ED4 /* AppDelegate.swift */; };
-		92F4B02F2275E11C00570ED4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02E2275E11C00570ED4 /* ViewController.swift */; };
+		92F4B02F2275E11C00570ED4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02E2275E11C00570ED4 /* MainViewController.swift */; };
 		92F4B0322275E11C00570ED4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F4B0302275E11C00570ED4 /* Main.storyboard */; };
 		92F4B0342275E11F00570ED4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92F4B0332275E11F00570ED4 /* Assets.xcassets */; };
 		92F4B0372275E11F00570ED4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F4B0352275E11F00570ED4 /* LaunchScreen.storyboard */; };
@@ -46,9 +48,11 @@
 		9245D63B2283B5A0004BB89B /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		9245D63D22850D40004BB89B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92596BF422850FA600B98C8A /* Chaps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chaps.entitlements; sourceTree = "<group>"; };
+		92A9B56722851B0300386D60 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
 		92F4B0292275E11C00570ED4 /* Chaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F4B02C2275E11C00570ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		92F4B02E2275E11C00570ED4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		92F4B02E2275E11C00570ED4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		92F4B0312275E11C00570ED4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		92F4B0332275E11F00570ED4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92F4B0362275E11F00570ED4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -128,6 +132,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		92A9B56622851AE600386D60 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				92F4B02E2275E11C00570ED4 /* MainViewController.swift */,
+				92A9B56722851B0300386D60 /* LoginViewController.swift */,
+				92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		92F4B0202275E11C00570ED4 = {
 			isa = PBXGroup;
 			children = (
@@ -151,13 +165,13 @@
 		92F4B02B2275E11C00570ED4 /* Chaps */ = {
 			isa = PBXGroup;
 			children = (
+				92A9B56622851AE600386D60 /* ViewControllers */,
 				92596BF422850FA600B98C8A /* Chaps.entitlements */,
 				9245D63D22850D40004BB89B /* GoogleService-Info.plist */,
 				9245D63A2283B4F0004BB89B /* Extensions */,
 				9245D631227FC315004BB89B /* Services */,
 				9245D630227FC2F7004BB89B /* Data */,
 				92F4B02C2275E11C00570ED4 /* AppDelegate.swift */,
-				92F4B02E2275E11C00570ED4 /* ViewController.swift */,
 				92F4B0302275E11C00570ED4 /* Main.storyboard */,
 				92F4B0332275E11F00570ED4 /* Assets.xcassets */,
 				92F4B0352275E11F00570ED4 /* LaunchScreen.storyboard */,
@@ -293,6 +307,7 @@
 				"${BUILT_PRODUCTS_DIR}/ForecastIO/ForecastIO.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -302,6 +317,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ForecastIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,13 +376,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A9B56822851B0300386D60 /* LoginViewController.swift in Sources */,
 				9245D62F227FC1D8004BB89B /* Weather.swift in Sources */,
-				92F4B02F2275E11C00570ED4 /* ViewController.swift in Sources */,
+				92F4B02F2275E11C00570ED4 /* MainViewController.swift in Sources */,
 				9245D637227FC65A004BB89B /* Forecast.swift in Sources */,
 				9245D633227FC332004BB89B /* NetworkOperation.swift in Sources */,
 				9245D62D227F7634004BB89B /* Location.swift in Sources */,
 				9245D635227FC50B004BB89B /* ForecastService.swift in Sources */,
 				9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */,
+				92A9B56A2285FF2600386D60 /* VerificationCodeViewController.swift in Sources */,
 				92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

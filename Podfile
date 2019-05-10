@@ -10,6 +10,8 @@ target 'Chaps' do
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
 
+  pod 'PromiseKit', '~> 6.8'
+
   target 'ChapsTests' do
     inherit! :search_paths
     # Pods for testing
