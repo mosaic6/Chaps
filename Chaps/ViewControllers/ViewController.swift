@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     super.viewDidLoad()
 
     checkLocationServices()
-    getCurrentLocation()  
+    getCurrentLocation()
   }
 
   override func viewDidAppear(_ animated: Bool) {

@@ -113,7 +113,6 @@ extension URLSession {
     }
 }
 
-
 public protocol URLRequestConvertible {
     var pmkRequest: URLRequest { get }
 }
@@ -123,7 +122,6 @@ extension URLRequest: URLRequestConvertible {
 extension URL: URLRequestConvertible {
     public var pmkRequest: URLRequest { return URLRequest(url: self) }
 }
-
 
 #if !os(Linux)
 public extension String {
@@ -165,7 +163,6 @@ private func adapter<T, U>(_ seal: Resolver<(data: T, response: U)>) -> (T?, U?,
         }
     }
 }
-
 
 #if swift(>=3.1)
 public enum PMKHTTPError: Error, LocalizedError, CustomStringConvertible {

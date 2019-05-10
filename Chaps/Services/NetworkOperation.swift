@@ -20,7 +20,7 @@ class NetworkOperation {
   func jsonFromUrl(_ completion: @escaping (NSDictionary?) -> Void) {
     let request = URLRequest(url: queryURL)
 
-    session.dataTask(with: request) { data, response, error in
+    session.dataTask(with: request) { data, response, _ in
       if let httpResponse = response as? HTTPURLResponse {
         switch httpResponse.statusCode {
         case 200:

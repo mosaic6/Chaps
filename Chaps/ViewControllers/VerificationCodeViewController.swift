@@ -25,7 +25,7 @@ class VerificationCodeViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
   }
 
   func signInWithVerificationCode(verificationCode: String) {
@@ -33,7 +33,7 @@ class VerificationCodeViewController: UIViewController {
     let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID,
                                                              verificationCode: verificationCode)
 
-    Auth.auth().signInAndRetrieveData(with: credential) { result, error in
+    Auth.auth().signInAndRetrieveData(with: credential) { _, error in
       if let error = error {
         return
       }

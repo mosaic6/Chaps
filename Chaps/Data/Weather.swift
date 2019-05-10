@@ -13,7 +13,7 @@ struct Weather: Decodable {
   let latitude: Double
   let longitude: Double
   let timezone: String
-  let offset: Int  
+  let offset: Int
   let currently: Currently
 //  let minutely: Minutely?
 //  let hourly: Hourly
@@ -47,7 +47,7 @@ struct Weather: Decodable {
   struct Minutely: Decodable {
     let summary: String
     let icon: String
-    let data: [MinuteData]  
+    let data: [MinuteData]
 
     struct MinuteData: Codable {
       let time: Int

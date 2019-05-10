@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     FirebaseApp.configure()
@@ -25,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Auth.auth().setAPNSToken(deviceToken, type: AuthAPNSTokenType.prod)
   }
 
-  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+  func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     if Auth.auth().canHandleNotification(userInfo) {
       completionHandler(UIBackgroundFetchResult.noData)
       return
@@ -35,4 +34,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
 }
-

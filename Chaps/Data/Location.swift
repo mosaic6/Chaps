@@ -13,6 +13,6 @@ struct Location {
   let location: CLLocation
 
   init(location: CLLocation) {
-    self.location = location    
+    self.location = location
   }
 }

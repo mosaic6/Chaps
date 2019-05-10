@@ -14,7 +14,7 @@ import PromiseKit
 class LoginViewController: UIViewController {
 
   // MARK: Outlets
-  
+
   @IBOutlet weak var phoneNumberTextField: UITextField!
 
   // MARK: Actions
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
   func phoneLogin() {
     guard let phoneNumber = phoneNumberTextField.text else { return }
 
-    PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { verificationId, error in
+    PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { verificationId, _ in
       guard let verificationId = verificationId else { return }
 
       UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
