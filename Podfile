@@ -7,6 +7,8 @@ target 'Chaps' do
 
   # Pods for Chaps
   pod 'ForecastIO'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
 
   target 'ChapsTests' do
     inherit! :search_paths

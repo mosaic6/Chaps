@@ -7,51 +7,116 @@
 //
 
 import UIKit
-import Weathersama
-import SlackKit
+import CoreLocation
+import ForecastIO
+import Firebase
 
 class ViewController: UIViewController {
 
-  var weatherAPI: Weathersama!
+  let forecastAPI = "2d3a728b58d6c21983e13d6aba624a5a"
+  let manager = CLLocationManager()
+  var location: CLLocation?
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    setupWeather()
-    setupSlack()
+    checkLocationServices()
+    getCurrentLocation()
+
+    phoneLogin()
   }
 
-  func setupWeather() {
-    weatherAPI = Weathersama(appId: "3e399a019a3786d9a7ae9e84b6e5893b",
-                             temperature: .Fahrenheit,
-                             language: .English,
-                             dataResponse: DATA_RESPONSE.JSON)
-    weatherAPI.delegete = self
-    // TODO: update weather model
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+      self.getWeatherForecast()
+    }
+
   }
 
-  func setupLocation() {
-    // TODO: core location to pass to weather
+  func phoneLogin() {
+    PhoneAuthProvider.provider().verifyPhoneNumber("16178525581", uiDelegate: nil) { verificationId, error in
+      if let error = error {
+        print(error)
+      }
+
+      UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
+//      let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
+    }
   }
 
-}
+  func signInWithVerificationCode(verificationID: String, verificationCode: String) {
+    let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID,
+                                                             verificationCode: verificationCode)
 
-extension ViewController: WeathersamaDelegete {
-  func didStartRequestResponder() {
-    print("Start Request")
+    Auth.auth().signInAndRetrieveData(with: credential) { result, error in
+      if let error = error {
+        return
+      }
+
+      // TODO: User is signed in
+    }
   }
 
-  func didEndRequestResponder(result: Bool, description: String, requestType: REQUEST_TYPE) {
-    if result {
-      if requestType == .dailyForecast {
-
-      } else if requestType == .Forecast {
-
-      } else if requestType == .Weather {
-
+  func checkLocationServices() {
+    if CLLocationManager.locationServicesEnabled() {
+      switch(CLLocationManager.authorizationStatus()) {
+      case .notDetermined, .restricted, .denied:
+        print("no access")
+      case .authorizedAlways, .authorizedWhenInUse:
+        self.getCurrentLocation()
+      @unknown default:
+        fatalError()
       }
     }
   }
 
+  // MARK: - Get users location
 
+  @objc
+  func getCurrentLocation() {
+    self.manager.requestWhenInUseAuthorization()
+
+    if CLLocationManager.locationServicesEnabled() {
+      manager.delegate = self
+      manager.desiredAccuracy = kCLLocationAccuracyBest
+      manager.startUpdatingLocation()
+    }
+  }
+
+  // MARK: Get Forecast
+
+  func getWeatherForecast() {
+    let forecastService = ForecastService(APIKey: forecastAPI)
+    guard let latitude = location?.coordinate.latitude, let longitude = location?.coordinate.longitude else { return }
+    forecastService.getWeather(latitude, lon: longitude) { weather in
+      if let temp = weather?.currently.temperature,
+        let nearestStorm = weather?.currently.nearestStormDistance {
+        let alert = UIAlertController(title: "\(temp)°",
+          message: "Nearest storm: \(nearestStorm) miles", preferredStyle: .alert)
+
+        let actionButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(actionButton)
+
+        self.present(alert, animated: true, completion: nil)
+      }
+    }
+  }
+
+}
+
+// MARK: CLLocationManagerDelegate
+
+extension ViewController: CLLocationManagerDelegate {
+
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    if let location = locations.first {
+      self.location = location
+    }
+  }
+
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print("Failed to find user's location: \(error.localizedDescription)")
+  }
 }
