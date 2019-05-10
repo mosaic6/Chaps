@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import ForecastIO
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -21,6 +22,8 @@ class ViewController: UIViewController {
 
     checkLocationServices()
     getCurrentLocation()
+
+    phoneLogin()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -30,6 +33,30 @@ class ViewController: UIViewController {
       self.getWeatherForecast()
     }
 
+  }
+
+  func phoneLogin() {
+    PhoneAuthProvider.provider().verifyPhoneNumber("16178525581", uiDelegate: nil) { verificationId, error in
+      if let error = error {
+        print(error)
+      }
+
+      UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
+//      let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
+    }
+  }
+
+  func signInWithVerificationCode(verificationID: String, verificationCode: String) {
+    let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID,
+                                                             verificationCode: verificationCode)
+
+    Auth.auth().signInAndRetrieveData(with: credential) { result, error in
+      if let error = error {
+        return
+      }
+
+      // TODO: User is signed in
+    }
   }
 
   func checkLocationServices() {
@@ -64,7 +91,16 @@ class ViewController: UIViewController {
     let forecastService = ForecastService(APIKey: forecastAPI)
     guard let latitude = location?.coordinate.latitude, let longitude = location?.coordinate.longitude else { return }
     forecastService.getWeather(latitude, lon: longitude) { weather in
-      print(weather)
+      if let temp = weather?.currently.temperature,
+        let nearestStorm = weather?.currently.nearestStormDistance {
+        let alert = UIAlertController(title: "\(temp)°",
+          message: "Nearest storm: \(nearestStorm) miles", preferredStyle: .alert)
+
+        let actionButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(actionButton)
+
+        self.present(alert, animated: true, completion: nil)
+      }
     }
   }
 

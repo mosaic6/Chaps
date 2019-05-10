@@ -17,14 +17,14 @@ class NetworkOperation {
     self.queryURL = url
   }
 
-  func jsonFromUrl(_ completion: @escaping ([String: Any]?) -> Void) {
+  func jsonFromUrl(_ completion: @escaping (NSDictionary?) -> Void) {
     let request = URLRequest(url: queryURL)
 
     session.dataTask(with: request) { data, response, error in
       if let httpResponse = response as? HTTPURLResponse {
         switch httpResponse.statusCode {
         case 200:
-          let jsonDict = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]
+          let jsonDict = try? JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary
           completion(jsonDict)
         default:
           print("Request failed \(httpResponse.statusCode)")

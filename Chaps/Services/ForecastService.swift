@@ -22,7 +22,13 @@ struct ForecastService {
       let networkOperation = NetworkOperation(url: forecastURL)
 
       networkOperation.jsonFromUrl { result in
-        let weather = try! Weather(from: result as! Decoder)
+        guard let result = result else {
+          completion(nil)
+          return
+        }
+
+        let weather = try! Weather(from: DataDecoder(result))
+
         completion(weather)
       }
     }

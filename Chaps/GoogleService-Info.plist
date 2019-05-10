@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>871773166020-vt5njci4dl8irht8qkr1930p3iufiu88.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.871773166020-vt5njci4dl8irht8qkr1930p3iufiu88</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKAI8XpCD3RBJGDIE0DyBu85XQ5VCgK1k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>871773166020</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lp.Chaps</string>
+	<key>PROJECT_ID</key>
+	<string>chaps-84a44</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chaps-84a44.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:871773166020:ios:17cbcfd8eb25e04f</string>
+	<key>DATABASE_URL</key>
+	<string>https://chaps-84a44.firebaseio.com</string>
+</dict>
+</plist>

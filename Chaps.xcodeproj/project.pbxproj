@@ -13,6 +13,8 @@
 		9245D633227FC332004BB89B /* NetworkOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D632227FC332004BB89B /* NetworkOperation.swift */; };
 		9245D635227FC50B004BB89B /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D634227FC50B004BB89B /* ForecastService.swift */; };
 		9245D637227FC65A004BB89B /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D636227FC65A004BB89B /* Forecast.swift */; };
+		9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D63B2283B5A0004BB89B /* Decoder.swift */; };
+		9245D63E22850D40004BB89B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9245D63D22850D40004BB89B /* GoogleService-Info.plist */; };
 		92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02C2275E11C00570ED4 /* AppDelegate.swift */; };
 		92F4B02F2275E11C00570ED4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02E2275E11C00570ED4 /* ViewController.swift */; };
 		92F4B0322275E11C00570ED4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F4B0302275E11C00570ED4 /* Main.storyboard */; };
@@ -41,6 +43,9 @@
 		9245D632227FC332004BB89B /* NetworkOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOperation.swift; sourceTree = "<group>"; };
 		9245D634227FC50B004BB89B /* ForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
 		9245D636227FC65A004BB89B /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		9245D63B2283B5A0004BB89B /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
+		9245D63D22850D40004BB89B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		92596BF422850FA600B98C8A /* Chaps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chaps.entitlements; sourceTree = "<group>"; };
 		92F4B0292275E11C00570ED4 /* Chaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F4B02C2275E11C00570ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92F4B02E2275E11C00570ED4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +120,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		9245D63A2283B4F0004BB89B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9245D63B2283B5A0004BB89B /* Decoder.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		92F4B0202275E11C00570ED4 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +151,9 @@
 		92F4B02B2275E11C00570ED4 /* Chaps */ = {
 			isa = PBXGroup;
 			children = (
+				92596BF422850FA600B98C8A /* Chaps.entitlements */,
+				9245D63D22850D40004BB89B /* GoogleService-Info.plist */,
+				9245D63A2283B4F0004BB89B /* Extensions */,
 				9245D631227FC315004BB89B /* Services */,
 				9245D630227FC2F7004BB89B /* Data */,
 				92F4B02C2275E11C00570ED4 /* AppDelegate.swift */,
@@ -212,6 +228,11 @@
 				TargetAttributes = {
 					92F4B0282275E11C00570ED4 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					92F4B03C2275E12000570ED4 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -244,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92F4B0372275E11F00570ED4 /* LaunchScreen.storyboard in Resources */,
+				9245D63E22850D40004BB89B /* GoogleService-Info.plist in Resources */,
 				92F4B0342275E11F00570ED4 /* Assets.xcassets in Resources */,
 				92F4B0322275E11C00570ED4 /* Main.storyboard in Resources */,
 			);
@@ -269,12 +291,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chaps/Pods-Chaps-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ForecastIO/ForecastIO.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ForecastIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -338,6 +366,7 @@
 				9245D633227FC332004BB89B /* NetworkOperation.swift in Sources */,
 				9245D62D227F7634004BB89B /* Location.swift in Sources */,
 				9245D635227FC50B004BB89B /* ForecastService.swift in Sources */,
+				9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */,
 				92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +530,7 @@
 			baseConfigurationReference = 3D7437F92DADAA87AF5FB838 /* Pods-Chaps.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chaps/Chaps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P624W8659J;
 				INFOPLIST_FILE = Chaps/Info.plist;
@@ -521,6 +551,7 @@
 			baseConfigurationReference = 00947DA9852A749B58EBE402 /* Pods-Chaps.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Chaps/Chaps.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P624W8659J;
 				INFOPLIST_FILE = Chaps/Info.plist;

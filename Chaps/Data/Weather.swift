@@ -9,27 +9,27 @@
 import Foundation
 import UIKit
 
-struct Weather: Codable {
+struct Weather: Decodable {
   let latitude: Double
   let longitude: Double
   let timezone: String
   let offset: Int  
   let currently: Currently
-  let minutely: Minutely
-  let hourly: Hourly
-  let daily: Daily
-  let alerts: Alerts?
-  let flags: Flags
+//  let minutely: Minutely?
+//  let hourly: Hourly
+//  let daily: Daily?
+//  let alerts: [Alerts]?
+  let flags: Flags?
 
-  struct Currently: Codable {
+  struct Currently: Decodable {
     let time: Int
     let summary: String
     let icon: String
     let nearestStormDistance: Int
     let precipIntensity: Double
-    let precipIntensityError: Double
+    let precipIntensityError: Double?
     let precipProbability: Double
-    let precipType: String
+    let precipType: String?
     let temperature: Double
     let apparentTemperature: Double
     let dewPoint: Double
@@ -44,33 +44,32 @@ struct Weather: Codable {
     let ozone: Double
   }
 
-  struct Minutely: Codable {
+  struct Minutely: Decodable {
     let summary: String
     let icon: String
-    let minutely: MinuteData
-    let hourly: Hourly
+    let data: [MinuteData]  
 
     struct MinuteData: Codable {
       let time: Int
       let precipIntensity: Double
       let precipIntensityError: Double
       let precipProbability: Double
-      let precipType: Double
+      let precipType: Double?
     }
   }
 
-  struct Hourly: Codable {
+  struct Hourly: Decodable {
     let summary: String
     let icon: String
-    let data: HourlyData
+    let data: [HourlyData]
 
-    struct HourlyData: Codable {
+    struct HourlyData: Decodable {
       let time: Int
       let summary: String
       let icon: String
       let precipIntensity: Double
       let precipProbability: Double
-      let precipType: String
+      let precipType: String?
       let temperature: Double
       let apparentTemperature: Double
       let dewPoint: Double
@@ -86,12 +85,12 @@ struct Weather: Codable {
     }
   }
 
-  struct Daily: Codable {
+  struct Daily: Decodable {
     let summary: String
     let icon: String
-    let data: DailyData
+    let data: [DailyData]
 
-    struct DailyData: Codable {
+    struct DailyData: Decodable {
       let time: Int
       let summary: String
       let icon: String
@@ -102,7 +101,7 @@ struct Weather: Codable {
       let precipIntensityMax: Double
       let precipIntensityMaxTime: Int
       let precipProbability: Double
-      let precipType: String
+      let precipType: String?
       let temperatureHigh: Double
       let temperatureHighTime: Int
       let temperatureLow: Double
@@ -134,7 +133,7 @@ struct Weather: Codable {
     }
   }
 
-  struct Alerts: Codable {
+  struct Alerts: Decodable {
     let title: String
     let time: Int
     let expires: Int
@@ -142,7 +141,7 @@ struct Weather: Codable {
     let uri: String
   }
 
-  struct Flags: Codable {
+  struct Flags: Decodable {
     let units: String
   }
 
