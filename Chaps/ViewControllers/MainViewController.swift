@@ -20,12 +20,17 @@ class MainViewController: UIViewController {
   var location: CLLocation?
 
   var groups: [Group] = []
+  private var tableViewData: [CellIdentifier] = []
 
   // MARK: Outlets
 
-  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet weak var tableView: UITableView!
 
-  // MARK: 
+  deinit {
+    self.tableView?.dataSource = nil
+  }
+  
+  // MARK:
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -55,10 +60,10 @@ class MainViewController: UIViewController {
   // MARK: Configure CollectionView
 
   func configureCollectionView() {
-    self.collectionView.delegate = self
-    self.collectionView.dataSource = self
+    self.tableView.delegate = self
+    self.tableView.dataSource = self
 
-    self.collectionView.registerNib(.GroupCardCollectionViewCell)
+    self.tableView.registerNib(.groupCardTableViewCell)
   }
 
   // MARK: - Get users location
@@ -131,25 +136,42 @@ class MainViewController: UIViewController {
 
 // MARK: CollectionViewDelegate
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 1 // groups.count
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 1
   }
 
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withCollectionViewCellNib: .GroupCardCollectionViewCell,
-                                                        indexPath: indexPath) as? GroupCardCollectionViewCell else {
-                                                          return UICollectionViewCell()
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let identifier = self.identifierForIndexPath(indexPath) else { return UITableViewCell() }
+
+    switch identifier {
+    case .groupCard:
+      //swiftlint:disable force_cast
+      let cell = tableView.dequeueReusableCell(withTableViewCellNib: .groupCardTableViewCell) as! GroupCardTableViewCell
+      self.configureGroupCardDetailCell(cell: cell, indexPath: indexPath)
+
+      return cell
     }
-
-    return cell
   }
-  
+
+  fileprivate func identifierForIndexPath(_ indexPath: IndexPath) -> CellIdentifier? {
+    return self.tableViewData[safe: indexPath.row]
+  }
+}
+
+// MARK: Cell Data
+extension MainViewController {
+
+  func configureGroupCardDetailCell(cell: UITableViewCell, indexPath: IndexPath) {
+    if let cell = cell as? GroupCardTableViewCell {
+      // update the cell
+    }
+  }
 }
 
 // MARK: CLLocationManagerDelegate
@@ -173,17 +195,17 @@ extension MainViewController {
   enum CellIdentifier {
     case groupCard
 
-    var tableViewCellNib: CollectionViewCellNib {
+    var tableViewCellNib: TableViewCellNib {
       switch self {
       case .groupCard:
-        return .GroupCardCollectionViewCell
+        return .groupCardTableViewCell
       }
     }
 
     var reuseIdentifier: String {
       switch self {
       case .groupCard:
-        return "GroupCardCollectionViewCell"
+        return "GroupCardTableViewCell"
       }
     }
   }

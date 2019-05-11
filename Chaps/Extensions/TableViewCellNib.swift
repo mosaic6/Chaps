@@ -11,6 +11,7 @@ import UIKit
 
 enum TableViewCellNib: String {
   case genericTableViewCell
+  case groupCardTableViewCell
 }
 
 // MARK: UITableView

@@ -18,34 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Uva-6S-2Gl">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="849-vd-o1w">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mNY-yx-ePg">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="T5Q-Y1-Cqi">
-                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pNa-fS-F8N">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionReusableView>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="4wE-5t-nyT"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="4sg-he-X4j"/>
-                                </connections>
-                            </collectionView>
+                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zu7-pb-37U" customClass="RoundButton" customModule="Chaps" customModuleProvider="target">
                                 <rect key="frame" x="169.5" y="727" width="75" height="75"/>
                                 <color key="backgroundColor" red="0.68235294120000001" green="0.35294117650000001" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -63,18 +39,18 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="849-vd-o1w" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Bor-36-cGu"/>
+                            <constraint firstItem="849-vd-o1w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Fj4-GW-GOL"/>
+                            <constraint firstItem="849-vd-o1w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Llt-cM-bDN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zu7-pb-37U" secondAttribute="bottom" constant="60" id="Qe9-nD-BeT"/>
-                            <constraint firstAttribute="bottom" secondItem="Uva-6S-2Gl" secondAttribute="bottom" id="jSA-L4-2AH"/>
-                            <constraint firstItem="Uva-6S-2Gl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oPs-8V-WWG"/>
-                            <constraint firstItem="Uva-6S-2Gl" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="uxj-b8-NGF"/>
+                            <constraint firstAttribute="bottom" secondItem="849-vd-o1w" secondAttribute="bottom" id="Uu0-ms-7pe"/>
                             <constraint firstItem="zu7-pb-37U" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zIw-iD-YPi"/>
-                            <constraint firstItem="Uva-6S-2Gl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zrI-G9-0L6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="J8g-Qe-0OJ"/>
                     <connections>
-                        <outlet property="collectionView" destination="Uva-6S-2Gl" id="yk2-na-7JL"/>
+                        <outlet property="tableView" destination="849-vd-o1w" id="rug-op-Gaf"/>
                         <segue destination="BeZ-u6-Abz" kind="presentation" identifier="notLoggedIn" id="azi-zP-VVP"/>
                     </connections>
                 </viewController>
