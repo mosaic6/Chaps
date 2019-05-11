@@ -11,6 +11,7 @@ target 'Chaps' do
   pod 'Firebase/Core'
 
   pod 'PromiseKit', '~> 6.8'
+  pod 'SwiftLint', '~> 0.27'
 
   target 'ChapsTests' do
     inherit! :search_paths

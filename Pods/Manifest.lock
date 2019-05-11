@@ -69,12 +69,14 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (6.8.3):
     - PromiseKit/CorePromise
+  - SwiftLint (0.31.0)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - ForecastIO
   - PromiseKit (~> 6.8)
+  - SwiftLint (~> 0.27)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -90,6 +92,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromiseKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Firebase: 2f5235e62f141cb86181c3af0dfe4509706351ac
@@ -104,7 +107,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   PromiseKit: 94c6e781838c5bf4717677d0d882b0e7250c80fc
+  SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
 
-PODFILE CHECKSUM: 20cfc542fedad6517fa939d325cf6727e0cc6802
+PODFILE CHECKSUM: fe191e93287ca34abf195fec0dc0da86fc31b9c7
 
 COCOAPODS: 1.5.3

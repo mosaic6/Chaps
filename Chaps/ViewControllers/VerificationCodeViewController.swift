@@ -14,12 +14,14 @@ class VerificationCodeViewController: UIViewController {
   // MARK: Outlets
 
   @IBOutlet weak var verificationCodeTextField: UITextField!
+  @IBOutlet weak var verifyButton: RoundButton!
 
   // MARK: Actions
 
   @IBAction func verifyAndSignIn(_ sender: Any) {
     guard let verificationCode = verificationCodeTextField.text else { return }
 
+    self.verifyButton.loadingIndicator(true)
     signInWithVerificationCode(verificationCode: verificationCode)
   }
 
@@ -34,7 +36,8 @@ class VerificationCodeViewController: UIViewController {
                                                              verificationCode: verificationCode)
 
     Auth.auth().signInAndRetrieveData(with: credential) { _, error in
-      if let error = error {
+      if let _ = error {
+        self.verifyButton.loadingIndicator(false)
         return
       }
 

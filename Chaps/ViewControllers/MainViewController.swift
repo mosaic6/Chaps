@@ -19,9 +19,16 @@ class MainViewController: UIViewController {
   let manager = CLLocationManager()
   var location: CLLocation?
 
+  var groups: [Group] = []
+
+  // MARK: Outlets
+
+  @IBOutlet weak var collectionView: UICollectionView!
+
   // MARK: 
   override func viewDidLoad() {
     super.viewDidLoad()
+
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -42,11 +49,23 @@ class MainViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
+    configureCollectionView()
   }
+
+  // MARK: Configure CollectionView
+
+  func configureCollectionView() {
+    self.collectionView.delegate = self
+    self.collectionView.dataSource = self
+
+    self.collectionView.registerNib(.GroupCardCollectionViewCell)
+  }
+
+  // MARK: - Get users location
 
   func checkLocationServices() {
     if CLLocationManager.locationServicesEnabled() {
-      switch(CLLocationManager.authorizationStatus()) {
+      switch CLLocationManager.authorizationStatus() {
       case .notDetermined, .restricted, .denied:
         print("no access")
       case .authorizedAlways, .authorizedWhenInUse:
@@ -56,8 +75,6 @@ class MainViewController: UIViewController {
       }
     }
   }
-
-  // MARK: - Get users location
 
   @objc
   func getCurrentLocation() {
@@ -76,23 +93,24 @@ class MainViewController: UIViewController {
     let forecastService = ForecastService(APIKey: forecastAPI)
     guard let latitude = location?.coordinate.latitude, let longitude = location?.coordinate.longitude else { return }
     forecastService.getWeather(latitude, lon: longitude) { weather in
-      if let temp = weather?.currently.temperature,
-        let nearestStorm = weather?.currently.nearestStormDistance {
-        let alert = UIAlertController(title: "\(temp)°",
-          message: "Nearest storm: \(nearestStorm) miles", preferredStyle: .alert)
-
-        let actionButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(actionButton)
-
-        self.present(alert, animated: true, completion: nil)
-      }
+      print(weather)
+//      if let temp = weather?.currently.temperature,
+//        let nearestStorm = weather?.currently.nearestStormDistance {
+//        let alert = UIAlertController(title: "\(temp)°",
+//          message: "Nearest storm: \(nearestStorm) miles", preferredStyle: .alert)
+//
+//        let actionButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+//        alert.addAction(actionButton)
+//
+//        self.present(alert, animated: true, completion: nil)
+//      }
     }
   }
 
   // MARK: Get User Status
 
   func checkUserAuth(_ completion: @escaping (Bool) -> Void) {
-    signOut()
+//    signOut()
     guard Auth.auth().currentUser != nil else {
       self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
       completion(false)
@@ -111,6 +129,29 @@ class MainViewController: UIViewController {
 
 }
 
+// MARK: CollectionViewDelegate
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return 1 // groups.count
+  }
+
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(withCollectionViewCellNib: .GroupCardCollectionViewCell,
+                                                        indexPath: indexPath) as? GroupCardCollectionViewCell else {
+                                                          return UICollectionViewCell()
+    }
+
+    return cell
+  }
+  
+}
+
 // MARK: CLLocationManagerDelegate
 
 extension MainViewController: CLLocationManagerDelegate {
@@ -123,5 +164,27 @@ extension MainViewController: CLLocationManagerDelegate {
 
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     print("Failed to find user's location: \(error.localizedDescription)")
+  }
+}
+
+// MARK: CellIdentifier
+extension MainViewController {
+
+  enum CellIdentifier {
+    case groupCard
+
+    var tableViewCellNib: CollectionViewCellNib {
+      switch self {
+      case .groupCard:
+        return .GroupCardCollectionViewCell
+      }
+    }
+
+    var reuseIdentifier: String {
+      switch self {
+      case .groupCard:
+        return "GroupCardCollectionViewCell"
+      }
+    }
   }
 }

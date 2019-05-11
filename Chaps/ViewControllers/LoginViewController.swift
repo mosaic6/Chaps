@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
   // MARK: Outlets
 
   @IBOutlet weak var phoneNumberTextField: UITextField!
+  @IBOutlet weak var signInButton: RoundButton!
 
   // MARK: Actions
 
@@ -30,10 +31,15 @@ class LoginViewController: UIViewController {
   }
 
   func phoneLogin() {
+    self.signInButton.loadingIndicator(true)
+
     guard let phoneNumber = phoneNumberTextField.text else { return }
 
     PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { verificationId, _ in
-      guard let verificationId = verificationId else { return }
+      guard let verificationId = verificationId else {
+        self.signInButton.loadingIndicator(false)
+        return
+      }
 
       UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
 

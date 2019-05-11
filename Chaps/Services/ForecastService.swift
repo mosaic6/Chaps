@@ -27,6 +27,7 @@ struct ForecastService {
           return
         }
 
+        //swiftlint:disable force_try
         let weather = try! Weather(from: DataDecoder(result))
 
         completion(weather)
