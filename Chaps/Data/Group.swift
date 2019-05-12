@@ -12,6 +12,6 @@ struct Group: Codable {
 
   let name: String
   let userCount: Int
-  let groupImage: String // Or a URL?
-  let description: String
+  let groupImage: String? // Or a URL?
+  let description: String?
 }

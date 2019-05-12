@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 enum TableViewCellNib: String {
-  case genericTableViewCell
+  case genericTextEntryTableViewCell
   case groupCardTableViewCell
 }
 

@@ -9,6 +9,9 @@ target 'Chaps' do
   pod 'ForecastIO'
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
 
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftLint', '~> 0.27'

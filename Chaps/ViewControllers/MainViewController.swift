@@ -54,12 +54,12 @@ class MainViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    configureCollectionView()
+    configureTableView()
   }
 
   // MARK: Configure CollectionView
 
-  func configureCollectionView() {
+  func configureTableView() {
     self.tableView.delegate = self
     self.tableView.dataSource = self
 
@@ -157,6 +157,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
       return cell
     }
+  }
+
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    return UIView()
   }
 
   fileprivate func identifierForIndexPath(_ indexPath: IndexPath) -> CellIdentifier? {
