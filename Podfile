@@ -16,6 +16,9 @@ target 'Chaps' do
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftLint', '~> 0.27'
 
+  pod 'IQKeyboardManagerSwift'
+  pod 'UnsplashSwift'
+
   target 'ChapsTests' do
     inherit! :search_paths
     # Pods for testing

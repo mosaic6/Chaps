@@ -19,7 +19,12 @@ class MainViewController: UIViewController {
   let manager = CLLocationManager()
   var location: CLLocation?
 
-  var groups: [Group] = []
+  private var groups: [Group]? {
+    didSet {
+      loadTableViewData()
+    }
+  }
+
   private var tableViewData: [CellIdentifier] = []
 
   // MARK: Outlets
@@ -30,7 +35,8 @@ class MainViewController: UIViewController {
     self.tableView?.dataSource = nil
   }
   
-  // MARK:
+  // MARK: Lifecycle
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -54,7 +60,26 @@ class MainViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
+    fetchGroups()
     configureTableView()
+  }
+
+  // MARK: Fetch Data
+
+  private func loadTableViewData() {
+    guard let groups = self.groups else { return }
+    var tableViewData: [CellIdentifier] = []
+
+    if !groups.isEmpty {
+      groups.forEach { group in
+        tableViewData.append(.groupCard(group))
+      }
+    }
+
+    DispatchQueue.main.async {
+      self.tableViewData = tableViewData
+      self.tableView.reloadData()
+    }
   }
 
   // MARK: Configure CollectionView
@@ -63,7 +88,10 @@ class MainViewController: UIViewController {
     self.tableView.delegate = self
     self.tableView.dataSource = self
 
-    self.tableView.registerNib(.groupCardTableViewCell)
+    self.tableView.registerNib(.GroupCardTableViewCell)
+
+    self.tableView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    
   }
 
   // MARK: - Get users location
@@ -99,23 +127,12 @@ class MainViewController: UIViewController {
     guard let latitude = location?.coordinate.latitude, let longitude = location?.coordinate.longitude else { return }
     forecastService.getWeather(latitude, lon: longitude) { weather in
       print(weather)
-//      if let temp = weather?.currently.temperature,
-//        let nearestStorm = weather?.currently.nearestStormDistance {
-//        let alert = UIAlertController(title: "\(temp)°",
-//          message: "Nearest storm: \(nearestStorm) miles", preferredStyle: .alert)
-//
-//        let actionButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
-//        alert.addAction(actionButton)
-//
-//        self.present(alert, animated: true, completion: nil)
-//      }
     }
   }
 
   // MARK: Get User Status
 
   func checkUserAuth(_ completion: @escaping (Bool) -> Void) {
-//    signOut()
     guard Auth.auth().currentUser != nil else {
       self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
       completion(false)
@@ -134,7 +151,20 @@ class MainViewController: UIViewController {
 
 }
 
-// MARK: CollectionViewDelegate
+// MARK: Requests
+
+extension MainViewController {
+
+  func fetchGroups() {
+    GroupService.shared.fetchGroups { groups in
+      guard let groups = groups else { return }
+
+      self.groups = groups
+    }
+  }
+}
+
+// MARK: UITableViewDelegate
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
@@ -143,7 +173,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return self.groups?.count ?? 0
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,11 +182,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     switch identifier {
     case .groupCard:
       //swiftlint:disable force_cast
-      let cell = tableView.dequeueReusableCell(withTableViewCellNib: .groupCardTableViewCell) as! GroupCardTableViewCell
+      let cell = tableView.dequeueReusableCell(withTableViewCellNib: .GroupCardTableViewCell) as! GroupCardTableViewCell
       self.configureGroupCardDetailCell(cell: cell, indexPath: indexPath)
 
       return cell
     }
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
+  }
+
+  func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    return UITableView.automaticDimension
   }
 
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -172,8 +210,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController {
 
   func configureGroupCardDetailCell(cell: UITableViewCell, indexPath: IndexPath) {
+    guard let group = self.groups?[safe: indexPath.row] else { return }
     if let cell = cell as? GroupCardTableViewCell {
-      // update the cell
+      cell.configureCell(group: group)
     }
   }
 }
@@ -197,12 +236,12 @@ extension MainViewController: CLLocationManagerDelegate {
 extension MainViewController {
 
   enum CellIdentifier {
-    case groupCard
+    case groupCard(Group)
 
     var tableViewCellNib: TableViewCellNib {
       switch self {
       case .groupCard:
-        return .groupCardTableViewCell
+        return .GroupCardTableViewCell
       }
     }
 

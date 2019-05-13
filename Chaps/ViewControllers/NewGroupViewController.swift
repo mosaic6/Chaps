@@ -27,8 +27,14 @@ class NewGroupViewController: UIViewController {
     saveNewGroup()
   }
 
+  @IBAction func closeView(_ sender: Any) {
+    self.dismiss(animated: true, completion: nil)
+  }
+  
   override func viewDidLoad() {
-    super.viewDidLoad()    
+    super.viewDidLoad()
+
+    self.groupNameTextField.becomeFirstResponder()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +51,9 @@ class NewGroupViewController: UIViewController {
     let data: [String: Any?] = ["name": groupName,
                                 "userCount": 1,
                                 "groupImage": nil,
-                                "description": nil]
+                                "description": nil,
+                                "author": userId,
+                                "createdAt": Date()]
 
     ref = database.collection("groups").addDocument(data: data) { err in
       if err == nil {

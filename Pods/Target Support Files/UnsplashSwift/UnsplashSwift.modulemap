@@ -1,0 +1,6 @@
+framework module UnsplashSwift {
+  umbrella header "UnsplashSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

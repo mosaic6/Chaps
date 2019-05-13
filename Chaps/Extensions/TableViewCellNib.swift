@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 enum TableViewCellNib: String {
+  //swiftlint:disable identifier_name
   case genericTextEntryTableViewCell
-  case groupCardTableViewCell
+  case GroupCardTableViewCell
 }
 
 // MARK: UITableView
