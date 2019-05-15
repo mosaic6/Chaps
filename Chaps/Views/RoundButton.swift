@@ -13,6 +13,16 @@ class RoundButton: UIButton {
 
   // MARK: IBInspectables
 
+  @IBInspectable var shadow: CGFloat = 0 {
+    didSet {
+      self.layer.shadowOpacity = 0.18
+      self.layer.shadowOffset = CGSize(width: 0, height: 2)
+      self.layer.shadowRadius = 2
+      self.layer.shadowColor = UIColor.black.cgColor
+      self.layer.masksToBounds = false
+    }
+  }
+
   @IBInspectable var cornerRadius: CGFloat = 0 {
     didSet {
       layer.cornerRadius = cornerRadius
@@ -50,15 +60,14 @@ class RoundButton: UIButton {
     } else {
       buttonTouchedOut()
     }
-    alpha = isEnabled ? 1 : 0.8
   }
 
   private func buttonTouchedIn() {
-    self.setTitle("", for: .normal)
+    self.setTitle(self.titleLabel?.text, for: .normal)
   }
 
   private func buttonTouchedOut() {
-    self.setTitle("", for: .normal)
+    self.setTitle(self.titleLabel?.text, for: .normal)
   }
 }
 
@@ -66,7 +75,7 @@ extension UIButton {
   func loadingIndicator(_ show: Bool) {
     let tag = 808404
     if show {
-      self.isEnabled = false
+//      self.isEnabled = false
       self.alpha = 0.5
       let indicator = UIActivityIndicatorView()
       let buttonHeight = self.bounds.size.height
@@ -76,7 +85,7 @@ extension UIButton {
       self.addSubview(indicator)
       indicator.startAnimating()
     } else {
-      self.isEnabled = true
+//      self.isEnabled = true
       self.alpha = 1.0
       if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
         indicator.stopAnimating()

@@ -26,10 +26,40 @@ class MainViewController: UIViewController {
   }
 
   private var tableViewData: [CellIdentifier] = []
+  private var isFlipped: Bool = false
 
   // MARK: Outlets
 
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var createButton: RoundButton!
+  @IBOutlet weak var eventButton: RoundButton!
+  @IBOutlet weak var groupButton: RoundButton!
+
+  // MARK: Actions
+  @IBAction func showCreateActions(_ sender: Any) {
+    isFlipped = !isFlipped
+
+    UIView.animate(withDuration: 0.3,
+                   delay: 0,
+                   options: [.allowUserInteraction, .curveEaseInOut],
+                   animations: {
+                    self.createButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+
+                    if self.isFlipped {
+                      self.eventButton.frame.origin.y -= 70
+                      self.eventButton.frame.origin.x -= 40
+
+                      self.groupButton.frame.origin.y -= 70
+                      self.groupButton.frame.origin.x += 40
+                    } else {
+                      self.eventButton.frame.origin.y += 70
+                      self.eventButton.frame.origin.x += 40
+
+                      self.groupButton.frame.origin.y += 70
+                      self.groupButton.frame.origin.x -= 40
+                    }
+    })
+  }
 
   deinit {
     self.tableView?.dataSource = nil
@@ -44,7 +74,7 @@ class MainViewController: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
+    
     checkUserAuth { isSignedIn in
       if isSignedIn {
         self.checkLocationServices()
@@ -190,11 +220,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
+    return 150
   }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return UITableView.automaticDimension
+    return 150
   }
 
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
