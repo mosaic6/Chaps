@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     }
   }
 
-  private var tableViewData: [CellIdentifier] = []
+  private var tableViewData: [[CellIdentifier]] = []
   private var isFlipped: Bool = false
 
   // MARK: Outlets
@@ -61,10 +61,6 @@ class MainViewController: UIViewController {
     })
   }
 
-  deinit {
-    self.tableView?.dataSource = nil
-  }
-  
   // MARK: Lifecycle
 
   override func viewDidLoad() {
@@ -97,17 +93,21 @@ class MainViewController: UIViewController {
   // MARK: Fetch Data
 
   private func loadTableViewData() {
-    guard let groups = self.groups else { return }
-    var tableViewData: [CellIdentifier] = []
+		var tableViewData: [[CellIdentifier]] = []
+		var sectionData: [CellIdentifier] = []
 
-    if !groups.isEmpty {
-      groups.forEach { group in
-        tableViewData.append(.groupCard(group))
-      }
-    }
+		if let groups = self.groups {
+			if !groups.isEmpty {
+				groups.forEach { group in
+					sectionData.append(.groupCard(group))
+				}
+			}
+		}
+
+		tableViewData.append(sectionData)
+		self.tableViewData = tableViewData
 
     DispatchQueue.main.async {
-      self.tableViewData = tableViewData
       self.tableView.reloadData()
     }
   }
@@ -118,8 +118,7 @@ class MainViewController: UIViewController {
     self.tableView.delegate = self
     self.tableView.dataSource = self
 
-    self.tableView.registerNib(.GroupCardTableViewCell)
-
+		self.tableView.registerNib(.GroupCardTableViewCell)
     self.tableView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     
   }
@@ -156,7 +155,7 @@ class MainViewController: UIViewController {
     let forecastService = ForecastService(APIKey: forecastAPI)
     guard let latitude = location?.coordinate.latitude, let longitude = location?.coordinate.longitude else { return }
     forecastService.getWeather(latitude, lon: longitude) { weather in
-      print(weather)
+			// TODO: Do something with the weather
     }
   }
 
@@ -174,11 +173,8 @@ class MainViewController: UIViewController {
   func signOut() {
     do {
       try? Auth.auth().signOut()
-    } catch {
-      print(error.localizedDescription)
     }
   }
-
 }
 
 // MARK: Requests
@@ -199,40 +195,50 @@ extension MainViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
+    return tableViewData.count
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.groups?.count ?? 0
+    return self.tableViewData[section].count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let identifier = self.identifierForIndexPath(indexPath) else { return UITableViewCell() }
 
-    switch identifier {
-    case .groupCard:
-      //swiftlint:disable force_cast
-      let cell = tableView.dequeueReusableCell(withTableViewCellNib: .GroupCardTableViewCell) as! GroupCardTableViewCell
-      self.configureGroupCardDetailCell(cell: cell, indexPath: indexPath)
-
-      return cell
-    }
+		let cell = tableView.dequeueReusableCell(withIdentifier: identifier.reuseIdentifier,
+																				 for: indexPath) as! GroupCardTableViewCell
+		configureGroupCardDetailCell(cell: cell, indexPath: indexPath)
+		return cell
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 150
+		guard let identifier = self.identifierForIndexPath(indexPath) else { return 0.0 }
+
+		switch identifier {
+		case .groupCard:
+			return 100
+		}
   }
 
   func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 150
+		guard let identifier = self.identifierForIndexPath(indexPath) else { return 0.0 }
+
+		switch identifier {
+		case .groupCard:
+			return 100
+		}
   }
+
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return "Groups"
+	}
 
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return UIView()
   }
 
   fileprivate func identifierForIndexPath(_ indexPath: IndexPath) -> CellIdentifier? {
-    return self.tableViewData[safe: indexPath.row]
+		return self.tableViewData[safe: indexPath.section]?[safe: indexPath.row]
   }
 }
 
@@ -241,9 +247,9 @@ extension MainViewController {
 
   func configureGroupCardDetailCell(cell: UITableViewCell, indexPath: IndexPath) {
     guard let group = self.groups?[safe: indexPath.row] else { return }
-    if let cell = cell as? GroupCardTableViewCell {
-      cell.configureCell(group: group)
-    }
+		if let cell = cell as? GroupCardTableViewCell {
+			cell.configureCell(group: group)
+		}
   }
 }
 
@@ -265,21 +271,21 @@ extension MainViewController: CLLocationManagerDelegate {
 // MARK: CellIdentifier
 extension MainViewController {
 
-  enum CellIdentifier {
-    case groupCard(Group)
+	enum CellIdentifier {
+		case groupCard(Group)
 
-    var tableViewCellNib: TableViewCellNib {
-      switch self {
-      case .groupCard:
-        return .GroupCardTableViewCell
-      }
-    }
+		var tableViewCellNib: TableViewCellNib {
+			switch self {
+			case .groupCard:
+				return .GroupCardTableViewCell
+			}
+		}
 
-    var reuseIdentifier: String {
-      switch self {
-      case .groupCard:
-        return "GroupCardTableViewCell"
-      }
-    }
-  }
+		var reuseIdentifier: String {
+			switch self {
+			case .groupCard:
+				return "GroupCardTableViewCell"
+			}
+		}
+	}
 }

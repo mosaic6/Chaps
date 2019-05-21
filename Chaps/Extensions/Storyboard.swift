@@ -19,7 +19,7 @@ struct Storyboard {
 }
 
 // MARK: StoryboardIdentifier
-fileprivate enum StoryboardIdentifier: String {
+private enum StoryboardIdentifier: String {
   case main
 }
 

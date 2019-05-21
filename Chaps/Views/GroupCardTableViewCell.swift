@@ -22,7 +22,7 @@ class GroupCardTableViewCell: UITableViewCell {
       var frame = newFrame
       frame.origin.x += inset
       frame.size.width -= 2 * inset
-      frame.size.height = 150
+      frame.size.height = 80
       super.frame = frame
     }
   }

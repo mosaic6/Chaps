@@ -13,6 +13,7 @@ enum TableViewCellNib: String {
   //swiftlint:disable identifier_name
   case genericTextEntryTableViewCell
   case GroupCardTableViewCell
+	case EventCardTableViewCell
 }
 
 // MARK: UITableView

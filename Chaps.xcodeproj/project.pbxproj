@@ -32,6 +32,10 @@
 		92F13AEB22879DE90061865B /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F13AEA22879DE90061865B /* NewGroupViewController.swift */; };
 		92F13AEE2287A75D0061865B /* GenericTextEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F13AEC2287A75D0061865B /* GenericTextEntryTableViewCell.swift */; };
 		92F13AEF2287A75D0061865B /* GenericTextEntryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F13AED2287A75D0061865B /* GenericTextEntryTableViewCell.xib */; };
+		92F1450D22937E9A005C0FB6 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1450B22937E9A005C0FB6 /* ChatViewController.swift */; };
+		92F1450E22937E9A005C0FB6 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F1450C22937E9A005C0FB6 /* ChatViewController.xib */; };
+		92F1451122937F94005C0FB6 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1451022937F94005C0FB6 /* AppController.swift */; };
+		92F14513229380B4005C0FB6 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F14512229380B4005C0FB6 /* UIColor+Additions.swift */; };
 		92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02C2275E11C00570ED4 /* AppDelegate.swift */; };
 		92F4B02F2275E11C00570ED4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F4B02E2275E11C00570ED4 /* MainViewController.swift */; };
 		92F4B0322275E11C00570ED4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92F4B0302275E11C00570ED4 /* Main.storyboard */; };
@@ -44,6 +48,10 @@
 		92F806A72288A2A000D9D570 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806A62288A2A000D9D570 /* ShadowView.swift */; };
 		92F806A92289009F00D9D570 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806A82289009F00D9D570 /* ContactsService.swift */; };
 		92F806AB228A1F4E00D9D570 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806AA228A1F4E00D9D570 /* EventService.swift */; };
+		92F806AD228C307300D9D570 /* NewEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806AC228C307300D9D570 /* NewEventViewController.swift */; };
+		92F806B0228D70D700D9D570 /* EventCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806AE228D70D700D9D570 /* EventCardTableViewCell.swift */; };
+		92F806B1228D70D700D9D570 /* EventCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */; };
+		92F806B3228D72C700D9D570 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806B2228D72C600D9D570 /* Event.swift */; };
 		ECDEF20A475FC42A8A00E8EA /* Pods_Chaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721C64D2D5DF7657CD0A896 /* Pods_Chaps.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +94,10 @@
 		92F13AEA22879DE90061865B /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
 		92F13AEC2287A75D0061865B /* GenericTextEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTextEntryTableViewCell.swift; sourceTree = "<group>"; };
 		92F13AED2287A75D0061865B /* GenericTextEntryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericTextEntryTableViewCell.xib; sourceTree = "<group>"; };
+		92F1450B22937E9A005C0FB6 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		92F1450C22937E9A005C0FB6 /* ChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
+		92F1451022937F94005C0FB6 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		92F14512229380B4005C0FB6 /* UIColor+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		92F4B0292275E11C00570ED4 /* Chaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92F4B02C2275E11C00570ED4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92F4B02E2275E11C00570ED4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +114,10 @@
 		92F806A62288A2A000D9D570 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		92F806A82289009F00D9D570 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
 		92F806AA228A1F4E00D9D570 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		92F806AC228C307300D9D570 /* NewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventViewController.swift; sourceTree = "<group>"; };
+		92F806AE228D70D700D9D570 /* EventCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardTableViewCell.swift; sourceTree = "<group>"; };
+		92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCardTableViewCell.xib; sourceTree = "<group>"; };
+		92F806B2228D72C600D9D570 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		9721C64D2D5DF7657CD0A896 /* Pods_Chaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEC02E282F8C23DFAE525482 /* Pods-ChapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChapsTests/Pods-ChapsTests.release.xcconfig"; sourceTree = "<group>"; };
 		F1DA820C2ABA54FFEA9BEB5E /* Pods_ChapsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChapsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +170,7 @@
 				92F13AC822866EA30061865B /* Group.swift */,
 				9245D62C227F7634004BB89B /* Location.swift */,
 				9245D62E227FC1D8004BB89B /* Weather.swift */,
+				92F806B2228D72C600D9D570 /* Event.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -161,11 +178,11 @@
 		9245D631227FC315004BB89B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				9245D634227FC50B004BB89B /* ForecastService.swift */,
-				9245D632227FC332004BB89B /* NetworkOperation.swift */,
-				92F806A222885F7600D9D570 /* GroupService.swift */,
 				92F806A82289009F00D9D570 /* ContactsService.swift */,
 				92F806AA228A1F4E00D9D570 /* EventService.swift */,
+				9245D634227FC50B004BB89B /* ForecastService.swift */,
+				92F806A222885F7600D9D570 /* GroupService.swift */,
+				9245D632227FC332004BB89B /* NetworkOperation.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -182,6 +199,7 @@
 				92F13AD82286E80A0061865B /* UIViewController.swift */,
 				92F13AD02286E5F90061865B /* ViewController.swift */,
 				92F13AD22286E6910061865B /* ViewRoutes.swift */,
+				92F14512229380B4005C0FB6 /* UIColor+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -192,10 +210,22 @@
 				92A9B56722851B0300386D60 /* LoginViewController.swift */,
 				92F4B02E2275E11C00570ED4 /* MainViewController.swift */,
 				92F13AD62286E7CF0061865B /* NavigationViewController.swift */,
+				92F806AC228C307300D9D570 /* NewEventViewController.swift */,
 				92F13AEA22879DE90061865B /* NewGroupViewController.swift */,
 				92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */,
+				92F1450B22937E9A005C0FB6 /* ChatViewController.swift */,
+				92F1450C22937E9A005C0FB6 /* ChatViewController.xib */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		92F1450F22937F80005C0FB6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				92F4B02C2275E11C00570ED4 /* AppDelegate.swift */,
+				92F1451022937F94005C0FB6 /* AppController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		92F4B0202275E11C00570ED4 = {
@@ -221,6 +251,7 @@
 		92F4B02B2275E11C00570ED4 /* Chaps */ = {
 			isa = PBXGroup;
 			children = (
+				92F1450F22937F80005C0FB6 /* Controllers */,
 				92F6A5F32286482A00776504 /* Views */,
 				92A9B56622851AE600386D60 /* ViewControllers */,
 				92596BF422850FA600B98C8A /* Chaps.entitlements */,
@@ -228,7 +259,6 @@
 				9245D63A2283B4F0004BB89B /* Extensions */,
 				9245D631227FC315004BB89B /* Services */,
 				9245D630227FC2F7004BB89B /* Data */,
-				92F4B02C2275E11C00570ED4 /* AppDelegate.swift */,
 				92F4B0302275E11C00570ED4 /* Main.storyboard */,
 				92F4B0332275E11F00570ED4 /* Assets.xcassets */,
 				92F4B0352275E11F00570ED4 /* LaunchScreen.storyboard */,
@@ -250,11 +280,13 @@
 		92F6A5F32286482A00776504 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				92F806AE228D70D700D9D570 /* EventCardTableViewCell.swift */,
+				92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */,
+				92F13AEC2287A75D0061865B /* GenericTextEntryTableViewCell.swift */,
+				92F13AED2287A75D0061865B /* GenericTextEntryTableViewCell.xib */,
 				92F13AE4228702790061865B /* GroupCardTableViewCell.swift */,
 				92F13AE5228702790061865B /* GroupCardTableViewCell.xib */,
 				92F6A5F42286485B00776504 /* RoundButton.swift */,
-				92F13AEC2287A75D0061865B /* GenericTextEntryTableViewCell.swift */,
-				92F13AED2287A75D0061865B /* GenericTextEntryTableViewCell.xib */,
 				92F806A62288A2A000D9D570 /* ShadowView.swift */,
 			);
 			path = Views;
@@ -352,6 +384,8 @@
 			files = (
 				92F4B0372275E11F00570ED4 /* LaunchScreen.storyboard in Resources */,
 				9245D63E22850D40004BB89B /* GoogleService-Info.plist in Resources */,
+				92F1450E22937E9A005C0FB6 /* ChatViewController.xib in Resources */,
+				92F806B1228D70D700D9D570 /* EventCardTableViewCell.xib in Resources */,
 				92F4B0342275E11F00570ED4 /* Assets.xcassets in Resources */,
 				92F4B0322275E11C00570ED4 /* Main.storyboard in Resources */,
 				92F13AE7228702790061865B /* GroupCardTableViewCell.xib in Resources */,
@@ -385,6 +419,8 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/UnsplashSwift/UnsplashSwift.framework",
@@ -403,6 +439,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UnsplashSwift.framework",
@@ -485,9 +523,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				92A9B56822851B0300386D60 /* LoginViewController.swift in Sources */,
+				92F806AD228C307300D9D570 /* NewEventViewController.swift in Sources */,
 				9245D62F227FC1D8004BB89B /* Weather.swift in Sources */,
 				92F806A92289009F00D9D570 /* ContactsService.swift in Sources */,
 				92F4B02F2275E11C00570ED4 /* MainViewController.swift in Sources */,
+				92F1451122937F94005C0FB6 /* AppController.swift in Sources */,
 				9245D637227FC65A004BB89B /* Forecast.swift in Sources */,
 				92F13AE6228702790061865B /* GroupCardTableViewCell.swift in Sources */,
 				92F13AEE2287A75D0061865B /* GenericTextEntryTableViewCell.swift in Sources */,
@@ -496,15 +536,18 @@
 				92F6A5F52286485B00776504 /* RoundButton.swift in Sources */,
 				92F13AD72286E7CF0061865B /* NavigationViewController.swift in Sources */,
 				92F806A72288A2A000D9D570 /* ShadowView.swift in Sources */,
+				92F806B3228D72C700D9D570 /* Event.swift in Sources */,
 				92F13AEB22879DE90061865B /* NewGroupViewController.swift in Sources */,
 				92F806A322885F7700D9D570 /* GroupService.swift in Sources */,
 				92F13AC922866EA30061865B /* Group.swift in Sources */,
 				92F13ADB2286E83D0061865B /* Storyboard.swift in Sources */,
+				92F1450D22937E9A005C0FB6 /* ChatViewController.swift in Sources */,
 				9245D633227FC332004BB89B /* NetworkOperation.swift in Sources */,
 				9245D62D227F7634004BB89B /* Location.swift in Sources */,
 				9245D635227FC50B004BB89B /* ForecastService.swift in Sources */,
 				9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */,
 				92F806AB228A1F4E00D9D570 /* EventService.swift in Sources */,
+				92F806B0228D70D700D9D570 /* EventCardTableViewCell.swift in Sources */,
 				92F13ADF2286EA0E0061865B /* AccessControl.swift in Sources */,
 				92F13AD92286E80A0061865B /* UIViewController.swift in Sources */,
 				92A9B56A2285FF2600386D60 /* VerificationCodeViewController.swift in Sources */,
@@ -512,6 +555,7 @@
 				92F13ADD2286E9A80061865B /* Result.swift in Sources */,
 				92F13AD12286E5F90061865B /* ViewController.swift in Sources */,
 				92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */,
+				92F14513229380B4005C0FB6 /* UIColor+Additions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

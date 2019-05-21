@@ -34,7 +34,7 @@ class NewGroupViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.groupNameTextField.becomeFirstResponder()
+//    self.groupNameTextField.becomeFirstResponder()
   }
 
   override func viewWillAppear(_ animated: Bool) {
