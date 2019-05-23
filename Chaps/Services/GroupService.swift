@@ -24,8 +24,9 @@ struct GroupService {
         return
       }
 
-      if let data = data?.data() {
-        let group = Group(data: data)
+
+      if let data = data {
+				let group = Group(document: data as! QueryDocumentSnapshot)
 
         completion(group)
       }
@@ -43,7 +44,7 @@ struct GroupService {
       }
 
       for document in data!.documents {
-        groups.append(Group(data: document.data())!)
+        groups.append(Group(document: document)!)
       }
 
       completion(groups)

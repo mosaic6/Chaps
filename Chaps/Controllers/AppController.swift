@@ -47,7 +47,7 @@ final class AppController {
 
 	private func handleAppState() {
 		if let user = Auth.auth().currentUser {
-			let vc = ChannelsViewController(currentUser: user)
+			let vc = MainViewController()
 			rootViewController = NavigationController(vc)
 		} else {
 			rootViewController = LoginViewController()

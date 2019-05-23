@@ -23,6 +23,22 @@ struct Message: MessageType {
 		return id ?? UUID().uuidString
 	}
 
+	init(user: User, content: String) {
+		sender = Sender(id: user.uid, displayName: AppSettings.displayName)
+		self.content = content
+		sentDate = Date()
+		id = nil
+		kind = .text(content)
+	}
+//
+//	init(user: User, image: UIImage) {
+//		sender = Sender(id: user.uid, displayName: AppSettings.displayName)
+////		self.image = image
+//		content = ""
+//		sentDate = Date()
+//		id = nil
+//	}
+
 	init?(document: QueryDocumentSnapshot) {
 		let data = document.data()
 

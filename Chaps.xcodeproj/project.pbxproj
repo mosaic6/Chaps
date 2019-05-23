@@ -15,7 +15,6 @@
 		9245D637227FC65A004BB89B /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D636227FC65A004BB89B /* Forecast.swift */; };
 		9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9245D63B2283B5A0004BB89B /* Decoder.swift */; };
 		9245D63E22850D40004BB89B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9245D63D22850D40004BB89B /* GoogleService-Info.plist */; };
-		926E884B2294BC360038B810 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926E884A2294BC360038B810 /* ChannelsViewController.swift */; };
 		926E884F2296384C0038B810 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926E884E2296384C0038B810 /* FirestoreService.swift */; };
 		92A9B56822851B0300386D60 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A9B56722851B0300386D60 /* LoginViewController.swift */; };
 		92A9B56A2285FF2600386D60 /* VerificationCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */; };
@@ -104,7 +103,6 @@
 		9245D63B2283B5A0004BB89B /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		9245D63D22850D40004BB89B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		92596BF422850FA600B98C8A /* Chaps.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Chaps.entitlements; sourceTree = "<group>"; };
-		926E884A2294BC360038B810 /* ChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsViewController.swift; sourceTree = "<group>"; };
 		926E884E2296384C0038B810 /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		92A9B56722851B0300386D60 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeViewController.swift; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 				92F13AEA22879DE90061865B /* NewGroupViewController.swift */,
 				92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */,
 				92F1450B22937E9A005C0FB6 /* ChatViewController.swift */,
-				926E884A2294BC360038B810 /* ChannelsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -597,7 +594,6 @@
 				92F13AD32286E6910061865B /* ViewRoutes.swift in Sources */,
 				92F13ADD2286E9A80061865B /* Result.swift in Sources */,
 				92F13AD12286E5F90061865B /* ViewController.swift in Sources */,
-				926E884B2294BC360038B810 /* ChannelsViewController.swift in Sources */,
 				92F4B02D2275E11C00570ED4 /* AppDelegate.swift in Sources */,
 				92F14513229380B4005C0FB6 /* UIColor+Additions.swift in Sources */,
 			);

@@ -11,6 +11,7 @@ import Photos
 import Firebase
 import MessageKit
 import FirebaseFirestore
+import InputBarAccessoryView
 
 final class ChatViewController: MessagesViewController {
 
@@ -18,17 +19,17 @@ final class ChatViewController: MessagesViewController {
 	private var reference: CollectionReference?
 	private var messageListener: ListenerRegistration?
 	private let user: User?
-	private let channel: Channel
+	private let group: Group
 
 	let sender = Sender(id: "", displayName: "")
 	var messages: [MessageType] = []
 
-	init?(user: User, channel: Channel) {
+	init?(user: User, group: Group) {
 		self.user = user
-		self.channel = channel
+		self.group = group
 		super.init(nibName: nil, bundle: nil)
 
-		title = channel.name
+		title = group.name
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -38,16 +39,17 @@ final class ChatViewController: MessagesViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		messageInputBar.delegate = self
 		messagesCollectionView.messagesDataSource = self
 		messagesCollectionView.messagesLayoutDelegate = self
 		messagesCollectionView.messagesDisplayDelegate = self
 
-		guard let id = channel.id else {
+		guard let id = group.id else {
 			navigationController?.popViewController(animated: true)
 			return
 		}
 
-		reference = db.collection(["channels", id, "thread"].joined(separator: "/"))
+		reference = db.collection(["groups", id, "thread"].joined(separator: "/"))
 
 		messageListener = reference?.addSnapshotListener { querySnapshot, error in
 			guard let snapshot = querySnapshot else {
@@ -59,9 +61,28 @@ final class ChatViewController: MessagesViewController {
 				self.handleDocumentChange(change)
 			}
 		}
+
+		messageInputBar.leftStackView.alignment = .center
+		messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
+//		messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false) // 3
+	}
+
+	// MARK: Helper
+
+	private func save(_ message: Message) {
+		reference?.addDocument(data: message.representation) { error in
+			if let e = error {
+				print("Error sending message: \(e.localizedDescription)")
+				return
+			}
+
+			self.messagesCollectionView.scrollToBottom()
+		}
 	}
 
 	private func insertNewMessage(_ message: Message) {
+//		guard !messages.contains(message) else { return }
+
 		messages.append(message)
 //		messages.sort()
 
@@ -126,5 +147,19 @@ extension ChatViewController: MessagesDisplayDelegate {
 }
 
 extension ChatViewController: MessagesLayoutDelegate {
+
+}
+
+// MARK: - MessageInputBarDelegate
+
+extension ChatViewController: InputBarAccessoryViewDelegate {
+
+	func messageInputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+		guard let user = self.user else { return }
+		let message = Message(user: user, content: text)
+
+		save(message)
+		inputBar.inputTextView.text = ""
+	}
 
 }

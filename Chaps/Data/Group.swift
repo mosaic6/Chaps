@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 struct Group {
 
+	let id: String?
   let name: String
   let userCount: Int
   let groupImage: String? // Or a URL?
@@ -18,8 +19,10 @@ struct Group {
   let createdAt: Timestamp
   let author: String
 
-  init?(data: [String: Any]) {
+  init?(document: QueryDocumentSnapshot) {
+		let data = document.data()
     //swiftlint:disable force_cast
+		self.id = data["id"] as? String
     self.name = data["name"] as! String
     self.userCount = data["userCount"] as! Int
     self.groupImage = data["groupImage"] as? String
@@ -27,4 +30,28 @@ struct Group {
     self.createdAt = data["createdAt"] as! Timestamp
     self.author = data["author"] as! String
   }
+}
+extension Group: DatabaseRepresentation {
+
+	var representation: [String: Any] {
+		var rep = ["name": name]
+
+		if let id = id {
+			rep["id"] = id
+		}
+
+		return rep
+	}
+}
+
+extension Group: Comparable {
+
+	static func == (lhs: Group, rhs: Group) -> Bool {
+		return lhs.id == rhs.id
+	}
+
+	static func < (lhs: Group, rhs: Group) -> Bool {
+		return lhs.name < rhs.name
+	}
+
 }

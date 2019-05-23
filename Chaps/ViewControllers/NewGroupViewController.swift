@@ -48,7 +48,8 @@ class NewGroupViewController: UIViewController {
 
     guard let userId = Auth.auth().currentUser?.uid else { return }
 
-    let data: [String: Any?] = ["name": groupName,
+		let data: [String: Any?] = ["id": userId,
+																"name": groupName,
                                 "userCount": 1,
                                 "groupImage": nil,
                                 "description": nil,

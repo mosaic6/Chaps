@@ -26,18 +26,17 @@ class MainViewController: UIViewController {
       loadTableViewData()
     }
   }
+	private let currentUser: User? = nil
 
-	private let channelCellIdentifier = "channelCell"
 	private var currentChannelAlertController: UIAlertController?
 
 	private lazy var db = Firestore.firestore()
 
-	private var channelReference: CollectionReference {
-		return db.collection("channels")
+	private var groupReference: CollectionReference {
+		return db.collection("groups")
 	}
 
-	private var channels = [Channel]()
-	private var channelListener: ListenerRegistration?
+	private var groupListener: ListenerRegistration?
   private var tableViewData: [[CellIdentifier]] = []
   private var isFlipped: Bool = false
 
@@ -91,9 +90,9 @@ class MainViewController: UIViewController {
       }
     }
 
-		channelListener = channelReference.addSnapshotListener { querySnapshot, error in
+		groupListener = groupReference.addSnapshotListener { querySnapshot, error in
 			guard let snapshot = querySnapshot else {
-				print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+				print("Error listening for group updates: \(error?.localizedDescription ?? "No error")")
 				return
 			}
 
@@ -214,19 +213,19 @@ private extension MainViewController {
   }
 
 	func handleDocumentChange(_ change: DocumentChange) {
-		guard let channel = Channel(document: change.document) else {
+		guard let group = Group(document: change.document) else {
 			return
 		}
 
 		switch change.type {
 		case .added:
-			addChannelToTable(channel)
+			break
 
 		case .modified:
-			updateChannelInTable(channel)
+			updateChannelInTable(group)
 
 		case .removed:
-			removeChannelFromTable(channel)
+			removeChannelFromTable(group)
 		@unknown default:
 			fatalError()
 		}
@@ -247,42 +246,29 @@ private extension MainViewController {
 		}
 
 		let channel = Channel(name: channelName)
-		channelReference.addDocument(data: channel.representation) { error in
+		groupReference.addDocument(data: channel.representation) { error in
 			if let e = error {
 				print("Error saving channel: \(e.localizedDescription)")
 			}
 		}
 	}
 
-	private func addChannelToTable(_ channel: Channel) {
-		guard !channels.contains(channel) else {
+	private func updateChannelInTable(_ group: Group) {
+		guard var groups = self.groups else { return }
+		guard let index = groups.firstIndex(of: group) else {
 			return
 		}
 
-		channels.append(channel)
-		channels.sort()
-
-		guard let index = channels.firstIndex(of: channel) else {
-			return
-		}
-		tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-	}
-
-	private func updateChannelInTable(_ channel: Channel) {
-		guard let index = channels.firstIndex(of: channel) else {
-			return
-		}
-
-		channels[index] = channel
+		groups[safe: index] = group
 		tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
 	}
 
-	private func removeChannelFromTable(_ channel: Channel) {
-		guard let index = channels.firstIndex(of: channel) else {
+	private func removeChannelFromTable(_ group: Group) {
+		guard let index = groups!.firstIndex(of: group) else {
 			return
 		}
 
-		channels.remove(at: index)
+		groups!.remove(at: index)
 		tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
 	}
 }
@@ -310,8 +296,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		guard let currentUser = Auth.auth().currentUser else { return }
-		guard let channel = channels[safe: indexPath.row] else { return }
-		guard let vc = ChatViewController(user: currentUser, channel: channel) else { return }
+		guard let groups = self.groups else { return }
+		guard let group = groups[safe: indexPath.row] else { return }
+		guard let vc = ChatViewController(user: currentUser, group: group) else { return }
 		navigationController?.pushViewController(vc, animated: true)
 	}
 
