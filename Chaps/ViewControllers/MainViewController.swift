@@ -11,6 +11,8 @@ import CoreLocation
 import ForecastIO
 import Firebase
 
+// TODO: Replace Channel with existing Group
+
 class MainViewController: UIViewController {
 
   // MARK: Variables
@@ -25,6 +27,17 @@ class MainViewController: UIViewController {
     }
   }
 
+	private let channelCellIdentifier = "channelCell"
+	private var currentChannelAlertController: UIAlertController?
+
+	private lazy var db = Firestore.firestore()
+
+	private var channelReference: CollectionReference {
+		return db.collection("channels")
+	}
+
+	private var channels = [Channel]()
+	private var channelListener: ListenerRegistration?
   private var tableViewData: [[CellIdentifier]] = []
   private var isFlipped: Bool = false
 
@@ -37,6 +50,7 @@ class MainViewController: UIViewController {
 
   // MARK: Actions
   @IBAction func showCreateActions(_ sender: Any) {
+		self.createChannel()
     isFlipped = !isFlipped
 
     UIView.animate(withDuration: 0.3,
@@ -65,7 +79,6 @@ class MainViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +90,17 @@ class MainViewController: UIViewController {
         self.getCurrentLocation()
       }
     }
+
+		channelListener = channelReference.addSnapshotListener { querySnapshot, error in
+			guard let snapshot = querySnapshot else {
+				print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+				return
+			}
+
+			snapshot.documentChanges.forEach { change in
+				self.handleDocumentChange(change)
+			}
+		}
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
       self.getWeatherForecast()
@@ -154,7 +178,7 @@ class MainViewController: UIViewController {
   func getWeatherForecast() {
     let forecastService = ForecastService(APIKey: forecastAPI)
     guard let latitude = location?.coordinate.latitude, let longitude = location?.coordinate.longitude else { return }
-    forecastService.getWeather(latitude, lon: longitude) { weather in
+    forecastService.getWeather(latitude, lon: longitude) { _ in
 			// TODO: Do something with the weather
     }
   }
@@ -177,9 +201,9 @@ class MainViewController: UIViewController {
   }
 }
 
-// MARK: Requests
+// MARK: Firestore Requests
 
-extension MainViewController {
+private extension MainViewController {
 
   func fetchGroups() {
     GroupService.shared.fetchGroups { groups in
@@ -188,6 +212,79 @@ extension MainViewController {
       self.groups = groups
     }
   }
+
+	func handleDocumentChange(_ change: DocumentChange) {
+		guard let channel = Channel(document: change.document) else {
+			return
+		}
+
+		switch change.type {
+		case .added:
+			addChannelToTable(channel)
+
+		case .modified:
+			updateChannelInTable(channel)
+
+		case .removed:
+			removeChannelFromTable(channel)
+		@unknown default:
+			fatalError()
+		}
+	}
+}
+
+// MARK: Helpers
+
+private extension MainViewController {
+
+	private func createChannel() {
+		guard let ac = currentChannelAlertController else {
+			return
+		}
+
+		guard let channelName = ac.textFields?.first?.text else {
+			return
+		}
+
+		let channel = Channel(name: channelName)
+		channelReference.addDocument(data: channel.representation) { error in
+			if let e = error {
+				print("Error saving channel: \(e.localizedDescription)")
+			}
+		}
+	}
+
+	private func addChannelToTable(_ channel: Channel) {
+		guard !channels.contains(channel) else {
+			return
+		}
+
+		channels.append(channel)
+		channels.sort()
+
+		guard let index = channels.firstIndex(of: channel) else {
+			return
+		}
+		tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+	}
+
+	private func updateChannelInTable(_ channel: Channel) {
+		guard let index = channels.firstIndex(of: channel) else {
+			return
+		}
+
+		channels[index] = channel
+		tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+	}
+
+	private func removeChannelFromTable(_ channel: Channel) {
+		guard let index = channels.firstIndex(of: channel) else {
+			return
+		}
+
+		channels.remove(at: index)
+		tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+	}
 }
 
 // MARK: UITableViewDelegate
@@ -210,6 +307,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 		configureGroupCardDetailCell(cell: cell, indexPath: indexPath)
 		return cell
   }
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		guard let currentUser = Auth.auth().currentUser else { return }
+		guard let channel = channels[safe: indexPath.row] else { return }
+		guard let vc = ChatViewController(user: currentUser, channel: channel) else { return }
+		navigationController?.pushViewController(vc, animated: true)
+	}
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		guard let identifier = self.identifierForIndexPath(indexPath) else { return 0.0 }

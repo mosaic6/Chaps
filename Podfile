@@ -1,6 +1,6 @@
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
+platform :ios, "11.0"
 use_frameworks!
+inhibit_all_warnings!
 
 target 'Chaps' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -13,7 +13,6 @@ target 'Chaps' do
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
 	pod 'Firebase/Messaging'
-	pod 'MessageKit'
 
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftLint', '~> 0.27'
@@ -21,16 +20,8 @@ target 'Chaps' do
   pod 'IQKeyboardManagerSwift'
   pod 'UnsplashSwift'
 
-	post_install do |installer|
-		installer.pods_project.targets.each do |target|
-			if target.name == 'MessageKit'
-				target.build_configurations.each do |config|
-					config.build_settings['SWIFT_VERSION'] = '4.0'
-				end
-			end
-		end
-	end
-
+	pod 'MessageKit', :git => 'https://github.com/MessageKit/MessageKit.git', :tag => '3.0.0-beta-swift5'
+	
   target 'ChapsTests' do
     inherit! :search_paths
     # Pods for testing

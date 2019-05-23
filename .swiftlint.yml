@@ -1,5 +1,12 @@
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Carthage
+  - Pods
 disabled_rules: # rule identifiers to exclude from running
  - trailing_whitespace
-excluded: # paths to ignore during linting. Takes precedence over `included`.
- - Pods
+ - identifier_name
+ - explicit_acl
+ - line_length
+ - explicit_top_level_acl
 force_cast: warning
+type_name:
+  min_length: 1

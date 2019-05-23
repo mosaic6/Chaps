@@ -25,7 +25,7 @@ class NetworkOperation {
         switch httpResponse.statusCode {
         case 200:
           let jsonDict = try? JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary
-          completion(jsonDict)
+					completion(jsonDict!)
         default:
           print("Request failed \(httpResponse.statusCode)")
         }

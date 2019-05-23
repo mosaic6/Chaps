@@ -107,7 +107,7 @@ enum Route {
     switch preparedPresentationStyle {
     case .presentOnCurrentlyShown:
       if !(preparedViewController is UINavigationController) {
-        preparedViewController = NavigationController(rootViewController: preparedViewController)
+        preparedViewController = NavigationController(preparedViewController)
       }
 
     case .push:

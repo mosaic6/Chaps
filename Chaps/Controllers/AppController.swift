@@ -36,7 +36,6 @@ final class AppController {
 			fatalError("Cannot layout app with a nil window")
 		}
 
-
 		FirebaseApp.configure()
 
 		self.window = window
