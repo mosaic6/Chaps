@@ -54,9 +54,10 @@ class NewGroupViewController: UIViewController {
                                 "groupImage": nil,
                                 "description": nil,
                                 "author": userId,
-                                "createdAt": Date()]
+                                "createdAt": Date(),
+																"messages": []]
 
-    ref = database.collection("groups").addDocument(data: data) { err in
+		ref = database.collection("groups").addDocument(data: data as [String : Any]) { err in
       if err == nil {
         self.dismiss(animated: true, completion: nil)
       }

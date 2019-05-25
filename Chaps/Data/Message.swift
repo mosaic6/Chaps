@@ -24,25 +24,17 @@ struct Message: MessageType {
 	}
 
 	init(user: User, content: String) {
-		sender = Sender(id: user.uid, displayName: AppSettings.displayName)
+		sender = Sender(senderId: user.uid, displayName: AppSettings.displayName ?? "")		
 		self.content = content
 		sentDate = Date()
 		id = nil
 		kind = .text(content)
 	}
-//
-//	init(user: User, image: UIImage) {
-//		sender = Sender(id: user.uid, displayName: AppSettings.displayName)
-////		self.image = image
-//		content = ""
-//		sentDate = Date()
-//		id = nil
-//	}
 
 	init?(document: QueryDocumentSnapshot) {
 		let data = document.data()
 
-		guard let sentDate = data["created"] as? Date else {
+		guard let sentDate = data["created"] as? Timestamp else {
 			return nil
 		}
 		guard let senderID = data["senderID"] as? String else {
@@ -54,7 +46,7 @@ struct Message: MessageType {
 
 		id = document.documentID
 
-		self.sentDate = sentDate
+		self.sentDate = sentDate.dateValue()
 		sender = Sender(senderId: senderID, displayName: senderName)		
 
 		if let content = data["content"] as? String {

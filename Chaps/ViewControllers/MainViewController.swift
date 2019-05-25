@@ -11,8 +11,6 @@ import CoreLocation
 import ForecastIO
 import Firebase
 
-// TODO: Replace Channel with existing Group
-
 class MainViewController: UIViewController {
 
   // MARK: Variables
@@ -27,8 +25,6 @@ class MainViewController: UIViewController {
     }
   }
 	private let currentUser: User? = nil
-
-	private var currentChannelAlertController: UIAlertController?
 
 	private lazy var db = Firestore.firestore()
 
@@ -49,7 +45,6 @@ class MainViewController: UIViewController {
 
   // MARK: Actions
   @IBAction func showCreateActions(_ sender: Any) {
-		self.createChannel()
     isFlipped = !isFlipped
 
     UIView.animate(withDuration: 0.3,
@@ -89,17 +84,6 @@ class MainViewController: UIViewController {
         self.getCurrentLocation()
       }
     }
-
-		groupListener = groupReference.addSnapshotListener { querySnapshot, error in
-			guard let snapshot = querySnapshot else {
-				print("Error listening for group updates: \(error?.localizedDescription ?? "No error")")
-				return
-			}
-
-			snapshot.documentChanges.forEach { change in
-				self.handleDocumentChange(change)
-			}
-		}
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
       self.getWeatherForecast()
@@ -211,66 +195,6 @@ private extension MainViewController {
       self.groups = groups
     }
   }
-
-	func handleDocumentChange(_ change: DocumentChange) {
-		guard let group = Group(document: change.document) else {
-			return
-		}
-
-		switch change.type {
-		case .added:
-			break
-
-		case .modified:
-			updateChannelInTable(group)
-
-		case .removed:
-			removeChannelFromTable(group)
-		@unknown default:
-			fatalError()
-		}
-	}
-}
-
-// MARK: Helpers
-
-private extension MainViewController {
-
-	private func createChannel() {
-		guard let ac = currentChannelAlertController else {
-			return
-		}
-
-		guard let channelName = ac.textFields?.first?.text else {
-			return
-		}
-
-		let channel = Channel(name: channelName)
-		groupReference.addDocument(data: channel.representation) { error in
-			if let e = error {
-				print("Error saving channel: \(e.localizedDescription)")
-			}
-		}
-	}
-
-	private func updateChannelInTable(_ group: Group) {
-		guard var groups = self.groups else { return }
-		guard let index = groups.firstIndex(of: group) else {
-			return
-		}
-
-		groups[safe: index] = group
-		tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-	}
-
-	private func removeChannelFromTable(_ group: Group) {
-		guard let index = groups!.firstIndex(of: group) else {
-			return
-		}
-
-		groups!.remove(at: index)
-		tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-	}
 }
 
 // MARK: UITableViewDelegate

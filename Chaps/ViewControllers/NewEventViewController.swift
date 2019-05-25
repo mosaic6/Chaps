@@ -56,7 +56,7 @@ class NewEventViewController: UIViewController {
 																"eventDate": eventDatePicker.date,
 																"createdAt": Date()]
 
-		ref = database.collection("events").addDocument(data: data) { err in
+		ref = database.collection("events").addDocument(data: data as [String : Any]) { err in
 			if err == nil {
 				self.dismiss(animated: true, completion: nil)
 			}

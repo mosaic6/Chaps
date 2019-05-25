@@ -21,8 +21,8 @@ final class ChatViewController: MessagesViewController {
 	private let user: User?
 	private let group: Group
 
-	let sender = Sender(id: "", displayName: "")
-	var messages: [MessageType] = []
+	let sender = Sender(senderId: "", displayName: "")
+	var messages: [Message] = []
 
 	init?(user: User, group: Group) {
 		self.user = user
@@ -49,11 +49,18 @@ final class ChatViewController: MessagesViewController {
 			return
 		}
 
-		reference = db.collection(["groups", id, "thread"].joined(separator: "/"))
+		reference = db.collection("groups")
+
+		db.collection("groups").getDocuments { documentSnapshot, error in
+			for document in documentSnapshot?.documents ?? [] {
+				print(document.documentID)
+			}
+		}
+
 
 		messageListener = reference?.addSnapshotListener { querySnapshot, error in
 			guard let snapshot = querySnapshot else {
-				print("Error listening for channel updates: \(error?.localizedDescription ?? "No error")")
+				print("Error listening for group thread updates: \(error?.localizedDescription ?? "No error")")
 				return
 			}
 
@@ -62,15 +69,40 @@ final class ChatViewController: MessagesViewController {
 			}
 		}
 
+		let cameraItem = InputBarButtonItem(type: .system)
+		cameraItem.tintColor = .primary
+		cameraItem.setImage(UIImage(named: "camera"), for: .normal)
+		cameraItem.addTarget(
+			self,
+			action: #selector(cameraButtonPressed),
+			for: .primaryActionTriggered
+		)
+		cameraItem.setSize(CGSize(width: 60, height: 30), animated: false)
+
 		messageInputBar.leftStackView.alignment = .center
 		messageInputBar.setLeftStackViewWidthConstant(to: 50, animated: false)
-//		messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false) // 3
+		messageInputBar.setStackViewItems([cameraItem], forStack: .left, animated: false) // 3
+	}
+
+	// MARK: - Actions
+
+	@objc private func cameraButtonPressed() {
+		let picker = UIImagePickerController()
+		picker.delegate = self
+
+		if UIImagePickerController.isSourceTypeAvailable(.camera) {
+			picker.sourceType = .camera
+		} else {
+			picker.sourceType = .photoLibrary
+		}
+
+		present(picker, animated: true, completion: nil)
 	}
 
 	// MARK: Helper
 
 	private func save(_ message: Message) {
-		reference?.addDocument(data: message.representation) { error in
+		reference?.document().setData(message.representation) { error in
 			if let e = error {
 				print("Error sending message: \(e.localizedDescription)")
 				return
@@ -81,14 +113,12 @@ final class ChatViewController: MessagesViewController {
 	}
 
 	private func insertNewMessage(_ message: Message) {
-//		guard !messages.contains(message) else { return }
-
 		messages.append(message)
-//		messages.sort()
 
-		let isLatestMessage = messages.index(after: 1) == messages.count - 1
+		messages.sort()
+
 //		let isLatestMessage = messages.index(of: message) == (messages.count - 1)
-		let shouldScrollToBottom = messagesCollectionView.scrollsToTop && isLatestMessage
+		let shouldScrollToBottom = messagesCollectionView.scrollsToTop
 
 		messagesCollectionView.reloadData()
 
@@ -129,7 +159,7 @@ final class ChatViewController: MessagesViewController {
 
 extension ChatViewController: MessagesDataSource {
 	func currentSender() -> SenderType {
-		return Sender(id: "123", displayName: "Josh")
+		return Sender(senderId: user?.uid ?? "", displayName: user?.displayName ?? "")
 	}
 
 	func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -154,12 +184,39 @@ extension ChatViewController: MessagesLayoutDelegate {
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
 
-	func messageInputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+	func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
 		guard let user = self.user else { return }
 		let message = Message(user: user, content: text)
 
 		save(message)
 		inputBar.inputTextView.text = ""
+	}
+
+}
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+		picker.dismiss(animated: true, completion: nil)
+
+		if let asset = info[.phAsset] as? PHAsset { // 1
+			let size = CGSize(width: 500, height: 500)
+			PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: nil) { result, info in
+				guard let image = result else {
+					return
+				}
+
+//				self.sendPhoto(image)
+			}
+		} else if let image = info[.originalImage] as? UIImage { // 2
+//			sendPhoto(image)
+		}
+	}
+
+	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+		picker.dismiss(animated: true, completion: nil)
 	}
 
 }

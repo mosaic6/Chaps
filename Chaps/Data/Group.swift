@@ -18,6 +18,8 @@ struct Group {
   let description: String?
   let createdAt: Timestamp
   let author: String
+	let messages: [Message]?
+
 
   init?(document: QueryDocumentSnapshot) {
 		let data = document.data()
@@ -29,6 +31,7 @@ struct Group {
     self.description = data["description"] as? String
     self.createdAt = data["createdAt"] as! Timestamp
     self.author = data["author"] as! String
+		self.messages = data["messages"] as? [Message]
   }
 }
 extension Group: DatabaseRepresentation {
