@@ -34,7 +34,7 @@ class NewGroupViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    self.groupNameTextField.becomeFirstResponder()
+    self.groupNameTextField.becomeFirstResponder()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -48,19 +48,18 @@ class NewGroupViewController: UIViewController {
 
     guard let userId = Auth.auth().currentUser?.uid else { return }
 
-		let data: [String: Any?] = ["id": userId,
-																"name": groupName,
+		let data: [String: Any?] = ["name": groupName,
                                 "userCount": 1,
                                 "groupImage": nil,
                                 "description": nil,
                                 "author": userId,
-                                "createdAt": Date(),
-																"messages": []]
+                                "createdAt": Date()]
+		let documentId = userId + UUID().uuidString
 
-		ref = database.collection("groups").addDocument(data: data as [String : Any]) { err in
-      if err == nil {
-        self.dismiss(animated: true, completion: nil)
-      }
-    }
+		database.collection("groups").document(documentId).setData(data as [String : Any]) { err in
+			if err == nil {
+				self.dismiss(animated: true, completion: nil)
+			}
+		}
   }
 }

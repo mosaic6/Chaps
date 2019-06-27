@@ -21,7 +21,6 @@ final class ChatViewController: MessagesViewController {
 	private let user: User?
 	private let group: Group
 
-	let sender = Sender(senderId: "", displayName: "")
 	var messages: [Message] = []
 
 	init?(user: User, group: Group) {
@@ -44,12 +43,12 @@ final class ChatViewController: MessagesViewController {
 		messagesCollectionView.messagesLayoutDelegate = self
 		messagesCollectionView.messagesDisplayDelegate = self
 
-		guard let id = group.id else {
-			navigationController?.popViewController(animated: true)
-			return
-		}
+//		guard !group.id!.isEmpty else {
+//			navigationController?.popViewController(animated: true)
+//			return
+//		}
 
-		reference = db.collection("groups")
+		reference = db.collection(["groups", group.id!, "thread"].joined(separator: "/"))
 
 		db.collection("groups").getDocuments { documentSnapshot, error in
 			for document in documentSnapshot?.documents ?? [] {
@@ -159,7 +158,7 @@ final class ChatViewController: MessagesViewController {
 
 extension ChatViewController: MessagesDataSource {
 	func currentSender() -> SenderType {
-		return Sender(senderId: user?.uid ?? "", displayName: user?.displayName ?? "")
+		return ChapUser(senderId: user?.uid ?? "", displayName: user?.displayName ?? "")
 	}
 
 	func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {

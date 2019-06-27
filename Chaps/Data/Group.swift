@@ -17,21 +17,33 @@ struct Group {
   let groupImage: String? // Or a URL?
   let description: String?
   let createdAt: Timestamp
-  let author: String
-	let messages: [Message]?
+  let author: String?
 
+
+	init(name: String, createdAt: Timestamp, author: String) {
+		id = nil
+		self.name = name
+		self.userCount = 1
+		self.groupImage = nil
+		self.description = nil
+		self.createdAt = createdAt
+		self.author = author
+	}
 
   init?(document: QueryDocumentSnapshot) {
 		let data = document.data()
     //swiftlint:disable force_cast
-		self.id = data["id"] as? String
-    self.name = data["name"] as! String
-    self.userCount = data["userCount"] as! Int
-    self.groupImage = data["groupImage"] as? String
-    self.description = data["description"] as? String
-    self.createdAt = data["createdAt"] as! Timestamp
-    self.author = data["author"] as! String
-		self.messages = data["messages"] as? [Message]
+		guard let name = data["name"] as? String,
+			let createdAt = data["createdAt"] as? Timestamp,
+			let userCount = data["userCount"] as? Int else { return nil }
+
+		self.id = document.documentID
+		self.name = name
+		self.createdAt = createdAt
+		self.userCount = userCount
+		self.groupImage = nil
+		self.author = nil
+		self.description = nil
   }
 }
 extension Group: DatabaseRepresentation {

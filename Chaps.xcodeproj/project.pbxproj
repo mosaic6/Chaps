@@ -54,6 +54,7 @@
 		92F806B0228D70D700D9D570 /* EventCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806AE228D70D700D9D570 /* EventCardTableViewCell.swift */; };
 		92F806B1228D70D700D9D570 /* EventCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */; };
 		92F806B3228D72C700D9D570 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806B2228D72C600D9D570 /* Event.swift */; };
+		92F81F2022C45EE000E5EAD7 /* ChapUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F81F1F22C45EE000E5EAD7 /* ChapUser.swift */; };
 		ECDEF20A475FC42A8A00E8EA /* Pods_Chaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721C64D2D5DF7657CD0A896 /* Pods_Chaps.framework */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +147,7 @@
 		92F806AE228D70D700D9D570 /* EventCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardTableViewCell.swift; sourceTree = "<group>"; };
 		92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCardTableViewCell.xib; sourceTree = "<group>"; };
 		92F806B2228D72C600D9D570 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		92F81F1F22C45EE000E5EAD7 /* ChapUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapUser.swift; sourceTree = "<group>"; };
 		9721C64D2D5DF7657CD0A896 /* Pods_Chaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEC02E282F8C23DFAE525482 /* Pods-ChapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChapsTests/Pods-ChapsTests.release.xcconfig"; sourceTree = "<group>"; };
 		F1DA820C2ABA54FFEA9BEB5E /* Pods_ChapsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChapsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,13 +196,14 @@
 		9245D630227FC2F7004BB89B /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				92F14518229389BE005C0FB6 /* DatabaseRepresentation.swift */,
 				92F806B2228D72C600D9D570 /* Event.swift */,
 				9245D636227FC65A004BB89B /* Forecast.swift */,
 				92F13AC822866EA30061865B /* Group.swift */,
 				9245D62C227F7634004BB89B /* Location.swift */,
 				92F1451422938267005C0FB6 /* Message.swift */,
+				92F81F1F22C45EE000E5EAD7 /* ChapUser.swift */,
 				9245D62E227FC1D8004BB89B /* Weather.swift */,
-				92F14518229389BE005C0FB6 /* DatabaseRepresentation.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -238,13 +241,13 @@
 		92A9B56622851AE600386D60 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				92F1450B22937E9A005C0FB6 /* ChatViewController.swift */,
 				92A9B56722851B0300386D60 /* LoginViewController.swift */,
 				92F4B02E2275E11C00570ED4 /* MainViewController.swift */,
 				92F13AD62286E7CF0061865B /* NavigationViewController.swift */,
 				92F806AC228C307300D9D570 /* NewEventViewController.swift */,
 				92F13AEA22879DE90061865B /* NewGroupViewController.swift */,
 				92A9B5692285FF2600386D60 /* VerificationCodeViewController.swift */,
-				92F1450B22937E9A005C0FB6 /* ChatViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				9245D62D227F7634004BB89B /* Location.swift in Sources */,
 				9245D635227FC50B004BB89B /* ForecastService.swift in Sources */,
 				9245D63C2283B5A0004BB89B /* Decoder.swift in Sources */,
+				92F81F2022C45EE000E5EAD7 /* ChapUser.swift in Sources */,
 				92F806AB228A1F4E00D9D570 /* EventService.swift in Sources */,
 				92F806B0228D70D700D9D570 /* EventCardTableViewCell.swift in Sources */,
 				92F13ADF2286EA0E0061865B /* AccessControl.swift in Sources */,
