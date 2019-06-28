@@ -25,6 +25,9 @@ PODS:
   - Firebase/Messaging (6.1.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 4.0.1)
+  - Firebase/Storage (6.1.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.2.1)
   - FirebaseAnalytics (6.0.1):
     - FirebaseCore (~> 6.0)
     - FirebaseInstanceID (~> 4.1)
@@ -77,6 +80,10 @@ PODS:
     - GoogleUtilities/Reachability (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
     - Protobuf (~> 3.1)
+  - FirebaseStorage (3.2.1):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - GTMSessionFetcher/Core (~> 1.1)
   - ForecastIO (6.0.1)
   - GoogleAppMeasurement (6.0.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
@@ -152,6 +159,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Firestore
   - Firebase/Messaging
+  - Firebase/Storage
   - ForecastIO
   - IQKeyboardManagerSwift
   - MessageKit (from `https://github.com/MessageKit/MessageKit.git`, tag `3.0.0-beta-swift5`)
@@ -173,6 +181,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseInstanceID
     - FirebaseMessaging
+    - FirebaseStorage
     - ForecastIO
     - GoogleAppMeasurement
     - GoogleUtilities
@@ -211,6 +220,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 8feac73d330bf7ed6945518e5ffc0aeb164a07f6
   FirebaseInstanceID: 27bed93a59b6685f5c3e0c028a878a764fd75c33
   FirebaseMessaging: 31377e05331d16dc6c9fd82554f9a5c49aa70aed
+  FirebaseStorage: 926d41552072b9fee67aa645760f05f87b7ce604
   ForecastIO: 2e3f47e81d0bf8301c632ad56d2ceb0a64083340
   GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
   GoogleUtilities: 84df567c76ca84f67b7bb40e769fdd4acc746a10
@@ -227,6 +237,6 @@ SPEC CHECKSUMS:
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   UnsplashSwift: d4cf856c775ccab2ec1122e2d72222dfd7e56b2d
 
-PODFILE CHECKSUM: 6dfdab8607da1694a46d9deceec51ec96a2fd17f
+PODFILE CHECKSUM: e3e6a0f1a1a72b7cbeaa3ef5983648645459d197
 
 COCOAPODS: 1.5.3

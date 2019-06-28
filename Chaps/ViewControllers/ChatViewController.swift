@@ -15,11 +15,22 @@ import InputBarAccessoryView
 
 final class ChatViewController: MessagesViewController {
 
+	private var isSendingPhoto = false {
+		didSet {
+			DispatchQueue.main.async {
+				self.messageInputBar.leftStackViewItems.forEach { item in
+//					item.isEnabled = !self.isSendingPhoto
+				}
+			}
+		}
+	}
+
 	private let db = Firestore.firestore()
 	private var reference: CollectionReference?
 	private var messageListener: ListenerRegistration?
 	private let user: User?
 	private let group: Group
+	private let storage = Storage.storage().reference()
 
 	var messages: [Message] = []
 
@@ -70,7 +81,7 @@ final class ChatViewController: MessagesViewController {
 
 		let cameraItem = InputBarButtonItem(type: .system)
 		cameraItem.tintColor = .primary
-		cameraItem.setImage(UIImage(named: "camera"), for: .normal)
+		cameraItem.setTitle("📷", for: .normal)
 		cameraItem.addTarget(
 			self,
 			action: #selector(cameraButtonPressed),
@@ -140,20 +151,61 @@ final class ChatViewController: MessagesViewController {
 			return
 		}
 	}
-//
-//	private func downloadImage(at url: URL, completion: @escaping (UIImage?) -> Void) {
-//		let ref = Storage.storage().reference(forURL: url.absoluteString)
-//		let megaByte = Int64(1 * 1024 * 1024)
-//
-//		ref.getData(maxSize: megaByte) { data, error in
-//			guard let imageData = data else {
-//				completion(nil)
-//				return
-//			}
-//
-//			completion(UIImage(data: imageData))
-//		}
-//	}
+
+	private func sendPhoto(_ image: UIImage) {
+		isSendingPhoto = true
+
+		uploadImage(image, to: group) { [weak self] url in
+			guard let `self` = self else {
+				return
+			}
+			self.isSendingPhoto = false
+
+			guard let url = url else {
+				return
+			}
+
+			var message = Message(user: self.user!, image: image)
+			message.downloadURL = url
+
+			self.save(message)
+			self.messagesCollectionView.scrollToBottom()
+		}
+	}
+
+	private func downloadImage(at url: URL, completion: @escaping (UIImage?) -> Void) {
+		let ref = Storage.storage().reference(forURL: url.absoluteString)
+		let megaByte = Int64(1 * 1024 * 1024)
+
+		ref.getData(maxSize: megaByte) { data, error in
+			guard let imageData = data else {
+				completion(nil)
+				return
+			}
+
+			completion(UIImage(data: imageData))
+		}
+	}
+
+	private func uploadImage(_ image: UIImage, to group: Group, completion: @escaping (URL?) -> Void) {
+		guard let groupID = group.id else {
+			completion(nil)
+			return
+		}
+
+		guard let scaledImage = image.scaledToSafeUploadSize, let data = scaledImage.jpegData(compressionQuality: 0.4) else {
+			completion(nil)
+			return
+		}
+
+		let metadata = StorageMetadata()
+		metadata.contentType = "image/jpeg"
+
+		let imageName = [UUID().uuidString, String(Date().timeIntervalSince1970)].joined()
+		storage.child(groupID).child(imageName).putData(data, metadata: metadata) { meta, error in
+			completion(URL(string: meta?.path ?? ""))
+		}
+	}
 }
 
 extension ChatViewController: MessagesDataSource {
@@ -207,10 +259,10 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 					return
 				}
 
-//				self.sendPhoto(image)
+				self.sendPhoto(image)
 			}
 		} else if let image = info[.originalImage] as? UIImage { // 2
-//			sendPhoto(image)
+			sendPhoto(image)
 		}
 	}
 

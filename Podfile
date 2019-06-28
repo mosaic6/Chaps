@@ -13,6 +13,7 @@ target 'Chaps' do
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
 	pod 'Firebase/Messaging'
+	pod 'Firebase/Storage'
 
   pod 'PromiseKit', '~> 6.8'
   pod 'SwiftLint', '~> 0.27'

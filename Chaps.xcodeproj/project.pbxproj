@@ -55,6 +55,7 @@
 		92F806B1228D70D700D9D570 /* EventCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */; };
 		92F806B3228D72C700D9D570 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F806B2228D72C600D9D570 /* Event.swift */; };
 		92F81F2022C45EE000E5EAD7 /* ChapUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F81F1F22C45EE000E5EAD7 /* ChapUser.swift */; };
+		92F81F2222C46A5000E5EAD7 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F81F2122C46A5000E5EAD7 /* UIImage.swift */; };
 		ECDEF20A475FC42A8A00E8EA /* Pods_Chaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9721C64D2D5DF7657CD0A896 /* Pods_Chaps.framework */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +149,7 @@
 		92F806AF228D70D700D9D570 /* EventCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventCardTableViewCell.xib; sourceTree = "<group>"; };
 		92F806B2228D72C600D9D570 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		92F81F1F22C45EE000E5EAD7 /* ChapUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapUser.swift; sourceTree = "<group>"; };
+		92F81F2122C46A5000E5EAD7 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		9721C64D2D5DF7657CD0A896 /* Pods_Chaps.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chaps.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEC02E282F8C23DFAE525482 /* Pods-ChapsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChapsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChapsTests/Pods-ChapsTests.release.xcconfig"; sourceTree = "<group>"; };
 		F1DA820C2ABA54FFEA9BEB5E /* Pods_ChapsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChapsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,6 +236,7 @@
 				92F13AD02286E5F90061865B /* ViewController.swift */,
 				92F13AD22286E6910061865B /* ViewRoutes.swift */,
 				92F14512229380B4005C0FB6 /* UIColor+Additions.swift */,
+				92F81F2122C46A5000E5EAD7 /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92A9B56822851B0300386D60 /* LoginViewController.swift in Sources */,
+				92F81F2222C46A5000E5EAD7 /* UIImage.swift in Sources */,
 				92F806AD228C307300D9D570 /* NewEventViewController.swift in Sources */,
 				9245D62F227FC1D8004BB89B /* Weather.swift in Sources */,
 				92F806A92289009F00D9D570 /* ContactsService.swift in Sources */,

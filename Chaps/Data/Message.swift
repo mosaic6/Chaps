@@ -18,17 +18,35 @@ struct Message: MessageType {
 	let id: String?
 	let content: String
 	var downloadURL: URL?
+	var image: UIImage? = nil
 
 	var messageId: String {
 		return id ?? UUID().uuidString
 	}
 
+//	var data: MessageData {
+//		if let image = image {
+//			return .photo(image)
+//		} else {
+//			return .text(content)
+//		}
+//	}
+
 	init(user: User, content: String) {
-		sender = Sender(senderId: user.uid, displayName: AppSettings.displayName ?? "")		
+		sender = ChapUser(senderId: user.uid, displayName: user.displayName ?? "")
 		self.content = content
 		sentDate = Date()
 		id = nil
 		kind = .text(content)
+	}
+
+	init(user: User, image: UIImage) {
+		sender = ChapUser(senderId: user.uid, displayName: user.displayName ?? "")
+		self.image = image
+		content = ""
+		sentDate = Date()
+		id = nil
+		self.kind = .text("")
 	}
 
 	init?(document: QueryDocumentSnapshot) {
